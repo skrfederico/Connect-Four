@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <h1>Connect 4 to escape</h1>
+  <button class="modal-buttons" id="openModal">About the Game</button>
+  <div id="modal">
+    <div id="modal-textbox">
+      <h1>Not your typical "Connect 4"</h1>
+      <h3>Do you really know this game?:</h3>
+      <p> Choose your 'chips'. What do you think will get you closer to escape?
+      </p>
+      <h3>Game on!:</h3>
+      <p>The more connections you make the higher your pile will go </p>.
+    
+      <div id="modal-footer">
+        <button class="modal-buttons" id="start" href="#">Choose your chips</button>
+        <button class="modal-buttons" id="close" href="#">Close</button>
+      </div>
+    </div>
+  </div>
+  <p id="message"></p>
+
+<div id="chips_choice" class="choice">Who's playing?<br>
+  Name: <input type="text" id="p1name" name="value" value="Player 1"><br>
+  <button onclick="setPlayerName()">Continue</button><br>
+  <!-- Name: <input type="text" id="p2name" name="value" value="Player 2"><br> -->
+<!-- Choose your 'chips'
+<ul id="chip_options" class="rows">
+  <div id="chip1"></div>
+  <div id="chip2"></div>
+  <div id="chip3"></div>
+  <div id="chip4"></div>
+  <div id="chip5"></div>
+  <div id="chip6"></div>
+</ul> 
+</div> -->
+</div>
+<div id="playArea" class="container">
+  <!-- <div id="score1" class="scoreboard">
+    <div><p>Finish line</p></div>
+    <ul id="p1column" class="sb-column">
+      <div id="sb1-col-row10"></div>
+      <div id="sb1-col-row9"></div>
+      <div id="sb1-col-row8"></div>
+      <div id="sb1-col-row7"></div>
+      <div id="sb1-col-row6"></div>
+      <div id="sb1-col-row5"></div>
+      <div id="sb1-col-row4"></div>
+      <div id="sb1-col-row3"></div>
+      <div id="sb1-col-row2"></div>
+      <div id="sb1-col-row1"></div>  
+      </ul>
+      <div><p>Start line</p></div>
+    </div>
+  <div id="scoreboard" class="board">
+<ul id="column1" class="column">
+<div id="col1row6"></div>
+<div id="col1row5"></div>
+<div id="col1row4"></div>
+<div id="col1row3"></div>
+<div id="col1row2"></div>
+<div id="col1row1"></div>  
+</ul>
+<ul id="column2" class="column">
+<div id="col2row6"></div>
+<div id="col2row5"></div>
+<div id="col2row4"></div>
+<div id="col2row3"></div>
+<div id="col2row2"></div>
+<div id="col2row1"></div>  
+</ul>
+<ul id="column3" class="column">
+<div id="col3row6"></div>
+<div id="col3row5"></div>
+<div id="col3row4"></div>
+<div id="col3row3"></div>
+<div id="col3row2"></div>
+<div id="col3row1"></div>  
+</ul>
+<ul id="column4" class="column">
+<div id="col4row6"></div>
+<div id="col4row5"></div>
+<div id="col4row4"></div>
+<div id="col4row3"></div>
+<div id="col4row2"></div>
+<div id="col4row1"></div>  
+</ul>
+<ul id="column5" class="column">
+<div id="col5row6"></div>
+<div id="col5row5"></div>
+<div id="col5row4"></div>
+<div id="col5row3"></div>
+<div id="col5row2"></div>
+<div id="col5row1"></div>  
+</ul>
+<ul id="column6" class="column">
+<div id="col6row6"></div>
+<div id="col6row5"></div>
+<div id="col6row4"></div>
+<div id="col6row3"></div>
+<div id="col6row2"></div>
+<div id="col6row1"></div>  
+</ul>
+<ul id="column7" class="column">
+<div id="col7row6"></div>
+<div id="col7row5"></div>
+<div id="col7row4"></div>
+<div id="col7row3"></div>
+<div id="col7row2"></div>
+<div id="col7row1"></div>  
+</ul>
+</div>
+
+<div id="score2" class="scoreboard">
+  <div><p>Finish line</p></div>
+  <ul id="p2column" class="sb-column">
+    <div id="sb2-col-row10"></div>
+    <div id="sb2-col-row9"></div>
+    <div id="sb2-col-row8"></div>
+    <div id="sb2-col-row7"></div>
+    <div id="sb2-col-row6"></div>
+    <div id="sb2-col-row5"></div>
+    <div id="sb2-col-row4"></div>
+    <div id="sb2-col-row3"></div>
+    <div id="sb2-col-row2"></div>
+    <div id="sb2-col-row1"></div>  
+    </ul>
+  <div><p>Start line</p></div>
+  </div> -->
+</div>
+</body>
+</html>
