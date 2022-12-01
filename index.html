@@ -9,16 +9,16 @@
   <script defer src="./app.js"></script>
 </head>
 <body>
-  <h1>Connect 4 to escape</h1>
+  <h1>Connect 4 to Connect 10</h1>
   <button class="modal-buttons" id="openModal">About the Game</button>
   <div id="modal">
     <div id="modal-textbox">
       <h1>Not your typical "Connect 4"</h1>
       <h3>Do you really know this game?:</h3>
-      <p> Choose your 'chips'. What do you think will get you closer to escape?
+      <p> Connect 4. (x10)
       </p>
       <h3>Game on!:</h3>
-      <p>The more connections you make the higher your pile will go </p>.
+      <p>You need 10 connections to win the big match!</p>.
     
       <div id="modal-footer">
         <button class="modal-buttons" id="start" href="#">Choose your chips</button>
@@ -47,6 +47,7 @@
 <h3 id="result"></h3>
 
 <div id="playArea" class="container">
+  <h3>match#<span id="current-match">1</span></h3>
   <div id="score1" class="scoreboard">
     <div><p>Finish line</p></div>
     <ul id="p1column" class="sb-column">
@@ -107,13 +108,13 @@
     <div></div>
     <div></div>
     <div></div>
-    <div class="bottom"></div>
-    <div class="bottom"></div>
-    <div class="bottom"></div>
-    <div class="bottom"></div>
-    <div class="bottom"></div>
-    <div class="bottom"></div>
-    <div class="bottom"></div>
+    <div class="bottom">Not here!</div>
+    <div class="bottom">Not here!</div>
+    <div class="bottom">Not here!</div>
+    <div class="bottom">Not here!</div>
+    <div class="bottom">Not here!</div>
+    <div class="bottom">Not here!</div>
+    <div class="bottom">Not here!</div>
     </div>
   <div id="score2" class="scoreboard">
   <div><p>Finish line</p></div>
