@@ -57,16 +57,16 @@ h1{
 .message{
   justify-content: center;
 }
-.rows {
+/* .rows {
   display: flex;
   padding: 5px;
 }
-
 .rows div:hover{
   background-color: yellow;
-}
-.column:hover{
-  background-color: aquamarine;
+} */
+
+#playArea{
+display:none;
 }
 
 .container{
@@ -74,6 +74,7 @@ h1{
   flex-direction: row;
   justify-content: space-evenly;
   border: 1px solid green
+
 }
 .scoreboard{
   /* display: flex; */
@@ -84,16 +85,16 @@ h1{
 text-align: center;
 }
 
-.board{
+/* .board{
   display: flex;
   flex-direction: row;
   align-items: center;
   grid-template-columns: repeat(7,1fr);
   border: 1px solid red;
-}
+} */
+
 ul{
   display: grid;
-  /* place-items: center; */
 }  
 
 ul div{
@@ -104,19 +105,51 @@ ul div{
 }
 
 .column{
-  /* display: grid; */
   width: 50px;
   height: 350px;
   border: 1px solid blueviolet;
   align-items: center;
-   /* justify-content: space-between; */
   justify-content: center;
 }
+.column:hover{
+  background-color: aquamarine;
+}
+
+.grid {
+  border: 1px solid black;
+  width: 400px;
+  height: 350px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.grid div{
+  border: solid 1px green;
+  width: 50px;
+  height: 50px;
+}
+.grid div:hover{
+  background-color: aquamarine;
+}
+
+.player1{
+  background-color: blue;
+border-radius: 10px;
+}
+
+.player2{
+  background-color: orange;
+border-radius: 10px;
+}
+
 .sb-column{
   width: 50px;
   height: 550px;
   border: 1px solid orange;
   margin: 0px 15px 0px 15px;
   align-items: center;
-
+}
+.sb-column:hover{
+  opacity: 0,5;
+  background-color: grey;
 }
