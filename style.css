@@ -111,9 +111,9 @@ ul div{
   align-items: center;
   justify-content: center;
 }
-.column:hover{
+/* .column:hover{
   background-color: aquamarine;
-}
+} */
 
 .grid {
   border: 1px solid black;
@@ -132,6 +132,12 @@ ul div{
   background-color: aquamarine;
 }
 
+.sb1-column div:hover{
+  background-color: green;
+}
+.sb2-column div:hover{
+  background-color: greenyellow;
+}
 .player1{
   background-color: blue;
   border-radius: 10px;
@@ -149,7 +155,7 @@ ul div{
   margin: 0px 15px 0px 15px;
   align-items: center;
 }
-.sb-column:hover{
+/* .sb-column:hover{
   opacity: 0,5;
   background-color: grey;
-}
+} */

@@ -33,6 +33,8 @@ function setBoard() {
 
 // document.addEventListener('DOMContentLoaded', () => {
 const squares = document.querySelectorAll('.grid div')
+const sb1squares = document.querySelectorAll('.sb1-column div')
+const sb2squares = document.querySelectorAll('.sb2-column div')
 const result = document.getElementById('result')
 const displayCurrentPlayer = document.getElementById('current-player')
 const displayCurrentMatch = document.getElementById('current-match')
@@ -126,6 +128,7 @@ function checkWinner() {
       square4.classList.contains('player1')
     ) {
       result.innerHTML = `Player 1 wins`
+      renderScoreboard1()
       // currentMatch = currentMatch + 1
       // displayCurrentMatch.innerHTML = currentMatch
       playAgain()
@@ -138,6 +141,7 @@ function checkWinner() {
       square4.classList.contains('player2')
     ) {
       result.innerHTML = `Player 2 wins`
+      renderScoreboard2()
       // currentMatch = currentMatch + 1
       // displayCurrentMatch.innerHTML = currentMatch
       playAgain()
@@ -188,4 +192,16 @@ function playAgain() {
   }
 }
 
+function renderScoreboard1() {
+  for (let z = 0; z < sb1squares.length; z++) {
+    sb1squares[z].classList.add('bottom')
+    sb1squares[z].classList.add('player1')
+  }
+}
+function renderScoreboard2() {
+  for (let x = 0; x < sb2squares.length; x++) {
+    sb2squares[x].classList.add('bottom')
+    sb2squares[x].classList.add('player2')
+  }
+}
 // })
