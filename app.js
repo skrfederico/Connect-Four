@@ -14,21 +14,27 @@ const closeModal = () => {
 }
 closeBtn.addEventListener('click', closeModal)
 
+// setPlayerName()
+// var p1
+// var p2
+
 function setPlayerName() {
-  var x = document.getElementById('p1name').value
-  document.getElementById('message').innerHTML = `Welcome ${x}`
-  document.getElementById('chips_choice').innerHTML = `Who else's playing?<br>
+  globalThis.p1 = document.getElementById('p1name').value
+  document.getElementById('message').innerHTML = `Welcome ${p1}`
+  document.getElementById('chooseName').innerHTML = `Who else's playing?<br>
   Name: <input type="text" id="p2name" name="value" value="Player 2"><br>
   <button onclick="setBoard()">Let's play!</button><br>`
 }
 
 function setBoard() {
-  var y = document.getElementById('p2name').value
+  globalThis.p2 = document.getElementById('p2name').value
   document.getElementById(
     'message'
-  ).innerHTML = `You are also welcome,${y}<br>Let's do this!`
-  document.getElementById('chips_choice').innerHTML = ``
+  ).innerHTML = `You are also welcome,${p2}<br>Let's do this!`
+  document.getElementById('chooseName').innerHTML = ``
   document.getElementById('playArea').style.display = 'flex'
+  document.getElementById('turn').style.display = 'flex'
+  let currentPlayer = 1
 }
 
 // document.addEventListener('DOMContentLoaded', () => {
@@ -38,8 +44,6 @@ const sb2squares = document.querySelectorAll('.sb2-column div')
 const result = document.getElementById('result')
 const displayCurrentPlayer = document.getElementById('current-player')
 const displayCurrentMatch = document.getElementById('current-match')
-
-let currentPlayer = 1
 
 const winningCombinations = [
   [0, 1, 2, 3],
@@ -127,7 +131,7 @@ function checkWinner() {
       square3.classList.contains('player1') &&
       square4.classList.contains('player1')
     ) {
-      result.innerHTML = `Player 1 wins`
+      result.innerHTML = `${p1} wins`
       renderScoreboard1()
       // currentMatch = currentMatch + 1
       // displayCurrentMatch.innerHTML = currentMatch
@@ -140,7 +144,7 @@ function checkWinner() {
       square3.classList.contains('player2') &&
       square4.classList.contains('player2')
     ) {
-      result.innerHTML = `Player 2 wins`
+      result.innerHTML = `${p2} wins`
       renderScoreboard2()
       // currentMatch = currentMatch + 1
       // displayCurrentMatch.innerHTML = currentMatch
@@ -148,6 +152,8 @@ function checkWinner() {
     }
   }
 }
+
+let currentPlayer = 1
 
 for (let i = 0; i < squares.length; i++) {
   squares[i].onclick = () => {
@@ -193,9 +199,15 @@ function playAgain() {
 }
 
 function renderScoreboard1() {
-  for (let z = 0; z < sb1squares.length; z++) {
-    sb1squares[z].classList.add('bottom')
-    sb1squares[z].classList.add('player1')
+  for (let i = 10; i <= sb1squares.length; i - 1) {
+    if (
+      sb1squares[i - (sb1squares.length - 1)].classList.contains('bottom') &&
+      !sb1squares[i].classList.contains('bottom')
+    ) {
+      // if (currentPlayer == 1)
+      sb1squares[i].classList.add('bottom')
+      sb1squares[i].classList.add('player1')
+    }
   }
 }
 function renderScoreboard2() {
