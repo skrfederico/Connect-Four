@@ -1,5 +1,6 @@
 console.log('it works')
 
+// MODAL
 const modal = document.querySelector('#modal')
 const openBtn = document.querySelector('#openModal')
 const closeBtn = document.querySelector('#close')
@@ -14,13 +15,12 @@ const closeModal = () => {
 }
 closeBtn.addEventListener('click', closeModal)
 
-// setPlayerName()
-// var p1
-// var p2
-
+// SETTING UP THE GAME
 function setPlayerName() {
   globalThis.p1 = document.getElementById('p1name').value
-  document.getElementById('message').innerHTML = `Welcome ${p1}`
+  document.getElementById(
+    'message'
+  ).innerHTML = `Welcome ${p1}. You'll use X tokens`
   document.getElementById('chooseName').innerHTML = `Who else's playing?<br>
   Name: <input type="text" id="p2name" name="value" value="Player 2"><br>
   <button onclick="setBoard()">Let's play!</button><br>`
@@ -30,14 +30,12 @@ function setBoard() {
   globalThis.p2 = document.getElementById('p2name').value
   document.getElementById(
     'message'
-  ).innerHTML = `You are also welcome,${p2}<br>Let's do this!`
+  ).innerHTML = `You are also welcome,${p2}. You'll use O tokens! <br> Let's do this!`
   document.getElementById('chooseName').innerHTML = ``
   document.getElementById('playArea').style.display = 'flex'
   document.getElementById('turn').style.display = 'flex'
-  let currentPlayer = 1
 }
 
-// document.addEventListener('DOMContentLoaded', () => {
 const squares = document.querySelectorAll('.grid div')
 const sb1squares = document.querySelectorAll('.sb1-column div')
 const sb2squares = document.querySelectorAll('.sb2-column div')
@@ -45,175 +43,158 @@ const result = document.getElementById('result')
 const displayCurrentPlayer = document.getElementById('current-player')
 const displayCurrentMatch = document.getElementById('current-match')
 
-const winningCombinations = [
-  [0, 1, 2, 3],
-  [41, 40, 39, 38],
-  [7, 8, 9, 10],
-  [34, 33, 32, 31],
-  [14, 15, 16, 17],
-  [27, 26, 25, 24],
-  [21, 22, 23, 24],
-  [20, 19, 18, 17],
-  [28, 29, 30, 31],
-  [13, 12, 11, 10],
-  [35, 36, 37, 38],
-  [6, 5, 4, 3],
-  [0, 7, 14, 21],
-  [41, 34, 27, 20],
-  [1, 8, 15, 22],
-  [40, 33, 26, 19],
-  [2, 9, 16, 23],
-  [39, 32, 25, 18],
-  [3, 10, 17, 24],
-  [38, 31, 24, 17],
-  [4, 11, 18, 25],
-  [37, 30, 23, 16],
-  [5, 12, 19, 26],
-  [36, 29, 22, 15],
-  [6, 13, 20, 27],
-  [35, 28, 21, 14],
-  [0, 8, 16, 24],
-  [41, 33, 25, 17],
-  [7, 15, 23, 31],
-  [34, 26, 18, 10],
-  [14, 22, 30, 38],
-  [27, 19, 11, 3],
-  [35, 29, 23, 17],
-  [6, 12, 18, 24],
-  [28, 22, 16, 10],
-  [13, 19, 25, 31],
-  [21, 15, 9, 3],
-  [20, 26, 32, 38],
-  [36, 30, 24, 18],
-  [5, 11, 17, 23],
-  [37, 31, 25, 19],
-  [4, 10, 16, 22],
-  [2, 10, 18, 26],
-  [39, 31, 23, 15],
-  [1, 9, 17, 25],
-  [40, 32, 24, 16],
-  [9, 17, 25, 33],
-  [8, 16, 24, 32],
-  [11, 17, 23, 29],
-  [12, 18, 24, 30],
-  [1, 2, 3, 4],
-  [5, 4, 3, 2],
-  [8, 9, 10, 11],
-  [12, 11, 10, 9],
-  [15, 16, 17, 18],
-  [19, 18, 17, 16],
-  [22, 23, 24, 25],
-  [26, 25, 24, 23],
-  [29, 30, 31, 32],
-  [33, 32, 31, 30],
-  [36, 37, 38, 39],
-  [40, 39, 38, 37],
-  [7, 14, 21, 28],
-  [8, 15, 22, 29],
-  [9, 16, 23, 30],
-  [10, 17, 24, 31],
-  [11, 18, 25, 32],
-  [12, 19, 26, 33],
-  [13, 20, 27, 34]
-]
-
-//check winning combinations
-function checkWinner() {
-  for (let y = 0; y < winningCombinations.length; y++) {
-    const square1 = squares[winningCombinations[y][0]]
-    const square2 = squares[winningCombinations[y][1]]
-    const square3 = squares[winningCombinations[y][2]]
-    const square4 = squares[winningCombinations[y][3]]
-    //is player 1 the winner?
-    if (
-      square1.classList.contains('player1') &&
-      square2.classList.contains('player1') &&
-      square3.classList.contains('player1') &&
-      square4.classList.contains('player1')
-    ) {
-      result.innerHTML = `${p1} wins`
-      renderScoreboard1()
-      // currentMatch = currentMatch + 1
-      // displayCurrentMatch.innerHTML = currentMatch
-      playAgain()
-    }
-    //is player 2 the winner?
-    if (
-      square1.classList.contains('player2') &&
-      square2.classList.contains('player2') &&
-      square3.classList.contains('player2') &&
-      square4.classList.contains('player2')
-    ) {
-      result.innerHTML = `${p2} wins`
-      renderScoreboard2()
-      // currentMatch = currentMatch + 1
-      // displayCurrentMatch.innerHTML = currentMatch
-      playAgain()
-    }
-  }
-}
-
-let currentPlayer = 1
-
-for (let i = 0; i < squares.length; i++) {
-  squares[i].onclick = () => {
-    squares[i].setAttribute('id', i)
-    // alert(`You've clicked square ` + i)
-    // console.log(squares)
-    if (
-      squares[i + 7].classList.contains('bottom') &&
-      !squares[i].classList.contains('bottom')
-    ) {
-      if (currentPlayer == 1) {
-        squares[i].classList.add('bottom')
-        squares[i].classList.add('player1')
-        currentPlayer = 2
-        displayCurrentPlayer.innerHTML = currentPlayer
-      } else if (currentPlayer == 2) {
-        squares[i].classList.add('bottom')
-        squares[i].classList.add('player2')
-        currentPlayer = 1
-        displayCurrentPlayer.innerHTML = currentPlayer
-      }
-    } else alert('invalid move')
-    checkWinner()
-  }
-}
+const playerX = 'X'
+const playerO = 'O'
+let currentPlayer = playerX
 
 let matchNumber = 1
 
-function eraseClasses() {
-  for (let i = 0; i < 41; i++) {
-    squares[i].classList.remove('bottom')
-  }
-}
+// function eraseClasses() {
+//   for (let i = 0; i < 41; i++) {
+//     squares[i].classList.remove('bottom')
+//   }
+// }
 
-function playAgain() {
-  for (let i = 0; i < squares.length; i++) {
-    // squares[i].classList.add('bottom')
-    squares[i].classList.remove('player1')
-    squares[i].classList.remove('player2')
-    currentPlayer = 1
-    eraseClasses()
-  }
-}
+// function playAgain() {
+//   for (let i = 0; i < squares.length; i++) {
+//     // squares[i].classList.add('bottom')
+//     squares[i].classList.remove('player1')
+//     squares[i].classList.remove('player2')
+//     currentPlayer = 1
+//     eraseClasses()
+//   }
+// }
 
-function renderScoreboard1() {
-  for (let i = 10; i <= sb1squares.length; i - 1) {
-    if (
-      sb1squares[i - (sb1squares.length - 1)].classList.contains('bottom') &&
-      !sb1squares[i].classList.contains('bottom')
-    ) {
-      // if (currentPlayer == 1)
-      sb1squares[i].classList.add('bottom')
-      sb1squares[i].classList.add('player1')
+class GameBoard {
+  constructor() {
+    this.board = [
+      ['', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', ''],
+      ['', '', '', '', '', '', '']
+    ]
+  }
+
+  placeToken(player1, x) {
+    this.board[x][y] = player1
+
+    this.checkForWinner()
+  }
+
+  refreshBoard() {
+    // Loop over this.board and add the appropriate class to the correct
+    // cell in the dom
+
+    //MY CODE BELOW
+    function eraseClasses() {
+      for (let i = 0; i < 41; i++) {
+        board[i][j].classList.remove('bottom')
+      }
+    }
+    //how to loop in a 2d array
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board[i].length; j++) {
+        board[i][j].classList.remove('xSquare')
+        board[i][j].classList.remove('oSquare')
+        board[i][j].innerText = ''
+        eraseClasses()
+      }
     }
   }
-}
-function renderScoreboard2() {
-  for (let x = 0; x < sb2squares.length; x++) {
-    sb2squares[x].classList.add('bottom')
-    sb2squares[x].classList.add('player2')
+
+  checkForWinner() {
+    // /   for (let r = 0; r < example.length; r++) {
+    //     for (let c = 0; c < example[r].length; c++) {
+    //       const node = example[r][c];
+    //       const coords = {
+    //         x: r,
+    //         y: c,
+    //       };
+    //       console.log(node, coords);
+    //     }
+    //   }
+    // if (
+    //   squares[i + 7].classList.contains('bottom') &&
+    //   !squares[i].classList.contains('bottom')
+    // ) {
+    //   if (currentPlayer == 1) {
+    //     squares[i].classList.add('bottom')
+    //     squares[i].classList.add('player1')
+    //     currentPlayer = 2
+    //     displayCurrentPlayer.innerHTML = currentPlayer
+    //   } else if (currentPlayer == 2) {
+    //     squares[i].classList.add('bottom')
+    //     squares[i].classList.add('player2')
+    //     currentPlayer = 1
+    //     displayCurrentPlayer.innerHTML = currentPlayer
+    //   }
+    // } else alert('invalid move')
   }
 }
-// })
+/// this is the end of the class
+
+let board = new GameBoard()
+
+for (let i = 0; i < squares.length; i++) {
+  squares[i].addEventListener('click', () => {
+    // changeTurns(i)
+    if (
+      squares[i + 7].classList.contains('bottom') &&
+      !squares[i].classList.contains('bottom') &&
+      squares[i].innerText === ''
+    ) {
+      if (currentPlayer == playerX) {
+        squares[i].classList.add('bottom')
+        squares[i].classList.add('xSquare')
+        squares[i].innerHTML = currentPlayer
+        board[i] = currentPlayer
+        currentPlayer = playerO
+        displayCurrentPlayer.innerHTML = currentPlayer
+      } else if (currentPlayer == playerO) {
+        squares[i].classList.add('bottom')
+        squares[i].classList.add('oSquare')
+        squares[i].innerHTML = currentPlayer
+        board[num][num] = currentPlayer
+        currentPlayer = playerX
+        displayCurrentPlayer.innerHTML = currentPlayer
+      }
+    } else alert(`invalid move`)
+  })
+}
+
+// // changeTurns function
+// function changeTurns(num) {
+//   if (squares[num].innerText === '' && currentPlayer) {
+//     squares[num].innerText = currentPlayer
+//     if (currentPlayer === 'X') {
+//       squares[num].classList.add('xSquare')
+//       currentPlayer = 'O'
+//     } else {
+//       squares[num].classList.add('oSquare')
+//       currentPlayer = 'X'
+//     }
+//     // checkForWinner()
+//   }
+// }
+
+//how to loop in a 2d array
+for (let i = 0; i < board.length; i++) {
+  let subarray = board[i]
+
+  for (let j = 0; j < subarray.length; j++) {
+    console.log(subarray[j])
+  }
+}
+
+// RECURSION
+// function checkWin(n)
+// {
+//   //1) base case
+//   if(board[i][j] == playerX)
+//   //2) recursive call to itself
+//   checkWin(next square)
+//   else
+//   return
+// }

@@ -142,12 +142,13 @@ ul div{
 .sb2-column div:hover{
   background-color: greenyellow;
 }
-.player1{
+.xSquare{
   background-color: blue;
   border-radius: 10px;
 }
 
-.player2{
+
+.oSquare{
   background-color: orange;
   border-radius: 10px;
 }
