@@ -140,16 +140,34 @@ for (let i = 0; i < squares.length; i++) {
     console.log(subarray[j].tagName)
 
     subarray[j].addEventListener('click', () => {
-      console.log(subarray[j], squares[i].id)
+      // console.log(subarray[j], squares[i].id)
       // subarray[j].classList.add('xSquare')
       // subarray[j].innerHTML = currentPlayer
       if (squares[i].id === 'row5') {
+        if (currentPlayer === playerX) {
+          subarray[j].classList.add('xSquare')
+          subarray[j].innerHTML = currentPlayer
+          currentPlayer = playerO
+        } else {
+          subarray[j].classList.add('oSquare')
+          subarray[j].innerHTML = currentPlayer
+          currentPlayer = playerX
+        }
+      } else if (
+        squares[i + 1].children[j].innerText &&
+        currentPlayer === playerX
+      ) {
         subarray[j].classList.add('xSquare')
         subarray[j].innerHTML = currentPlayer
-      } else if (squares[i + 1].children[j].innerText) {
-        subarray[j].classList.add('xSquare')
+        currentPlayer = playerO
+      } else if (
+        squares[i + 1].children[j].innerText &&
+        currentPlayer === playerO
+      ) {
+        subarray[j].classList.add('oSquare')
         subarray[j].innerHTML = currentPlayer
-      }
+        currentPlayer = playerX
+      } else alert(`invalid move`)
     })
   }
 }
