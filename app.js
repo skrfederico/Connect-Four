@@ -4,6 +4,7 @@ console.log('it works')
 const modal = document.querySelector('#modal')
 const openBtn = document.querySelector('#openModal')
 const closeBtn = document.querySelector('#close')
+const reset = document.querySelector('#playAgain')
 
 const openModal = () => {
   modal.style.display = 'block'
@@ -55,16 +56,6 @@ let matchNumber = 1
 //   }
 // }
 
-// function playAgain() {
-//   for (let i = 0; i < squares.length; i++) {
-//     // squares[i].classList.add('bottom')
-//     squares[i].classList.remove('player1')
-//     squares[i].classList.remove('player2')
-//     currentPlayer = 1
-//     eraseClasses()
-//   }
-// }
-
 class GameBoard {
   constructor(board) {
     this.board = board
@@ -72,7 +63,6 @@ class GameBoard {
 
   placeToken(player1, x) {
     this.board[x][y] = player1
-
     this.checkForWinner()
   }
 
@@ -134,15 +124,13 @@ let board = connectFour.board
 console.log(board)
 
 //how to loop in a 2d array
+// GAMEPLAY function
 for (let i = 0; i < squares.length; i++) {
   let subarray = squares[i].children
   for (let j = 0; j < subarray.length; j++) {
     console.log(subarray[j].tagName)
 
     subarray[j].addEventListener('click', () => {
-      // console.log(subarray[j], squares[i].id)
-      // subarray[j].classList.add('xSquare')
-      // subarray[j].innerHTML = currentPlayer
       if (squares[i].id === 'row5') {
         if (currentPlayer === playerX) {
           subarray[j].classList.add('xSquare')
@@ -169,8 +157,31 @@ for (let i = 0; i < squares.length; i++) {
         currentPlayer = playerX
       } else alert(`invalid move`)
     })
+
+    const playAgain = () => {
+      console.log('reset clicked')
+      subarray[j].classList.remove('xSquare')
+      subarray[j].classList.remove('oSquare')
+      subarray[j].innerText = ''
+      // eraseClasses()
+    }
+    reset.addEventListener('click', playAgain)
   }
 }
+
+// // function playAgain() {
+// const playAgain = () => {
+//   console.log('reset clicked')
+//   for (let i = 0; i < board.length; i++) {
+//     for (let j = 0; j < subarray.length; j++) {
+//       subarray[j].classList.remove('xSquare')
+//       subarray[j].classList.remove('oSquare')
+//       subarray[j].innerText = ''
+//       // eraseClasses()
+//     }
+//   }
+// }
+// reset.addEventListener('click', playAgain)
 
 // debugger
 // for (let i = 0; i < squares.length; i++) {
