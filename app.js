@@ -36,7 +36,7 @@ function setBoard() {
   document.getElementById('turn').style.display = 'flex'
 }
 
-const squares = document.querySelectorAll('.grid div')
+const squares = document.querySelectorAll('.grid>div')
 const sb1squares = document.querySelectorAll('.sb1-column div')
 const sb2squares = document.querySelectorAll('.sb2-column div')
 const result = document.getElementById('result')
@@ -66,15 +66,8 @@ let matchNumber = 1
 // }
 
 class GameBoard {
-  constructor() {
-    this.board = [
-      ['', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', ''],
-      ['', '', '', '', '', '', '']
-    ]
+  constructor(board) {
+    this.board = board
   }
 
   placeToken(player1, x) {
@@ -135,34 +128,59 @@ class GameBoard {
 }
 /// this is the end of the class
 
-let board = new GameBoard()
+let connectFour = new GameBoard(squares)
 
+let board = connectFour.board
+console.log(board)
+
+//how to loop in a 2d array
 for (let i = 0; i < squares.length; i++) {
-  squares[i].addEventListener('click', () => {
-    // changeTurns(i)
-    if (
-      squares[i + 7].classList.contains('bottom') &&
-      !squares[i].classList.contains('bottom') &&
-      squares[i].innerText === ''
-    ) {
-      if (currentPlayer == playerX) {
-        squares[i].classList.add('bottom')
-        squares[i].classList.add('xSquare')
-        squares[i].innerHTML = currentPlayer
-        board[i] = currentPlayer
-        currentPlayer = playerO
-        displayCurrentPlayer.innerHTML = currentPlayer
-      } else if (currentPlayer == playerO) {
-        squares[i].classList.add('bottom')
-        squares[i].classList.add('oSquare')
-        squares[i].innerHTML = currentPlayer
-        board[num][num] = currentPlayer
-        currentPlayer = playerX
-        displayCurrentPlayer.innerHTML = currentPlayer
+  let subarray = squares[i].children
+  for (let j = 0; j < subarray.length; j++) {
+    console.log(subarray[j].tagName)
+
+    subarray[j].addEventListener('click', () => {
+      console.log(subarray[j], squares[i].id)
+      // subarray[j].classList.add('xSquare')
+      // subarray[j].innerHTML = currentPlayer
+      if (squares[i].id === 'row5') {
+        subarray[j].classList.add('xSquare')
+        subarray[j].innerHTML = currentPlayer
+      } else if (squares[i + 1].children[j].innerText) {
+        subarray[j].classList.add('xSquare')
+        subarray[j].innerHTML = currentPlayer
       }
-    } else alert(`invalid move`)
-  })
+    })
+  }
 }
+
+// debugger
+// for (let i = 0; i < squares.length; i++) {
+//   squares[i].addEventListener('click', () => {
+//     // changeTurns(i)
+//     if (
+//       squares[i + 7].classList.contains('bottom') &&
+//       !squares[i].classList.contains('bottom') &&
+//       squares[i].innerText === ''
+//     ) {
+//       if (currentPlayer == playerX) {
+//         squares[i].classList.add('bottom')
+//         squares[i].classList.add('xSquare')
+//         squares[i].innerHTML = currentPlayer
+//         // board.board[i][i] = currentPlayer
+//         currentPlayer = playerO
+//         displayCurrentPlayer.innerHTML = currentPlayer
+//       } else if (currentPlayer == playerO) {
+//         squares[i].classList.add('bottom')
+//         squares[i].classList.add('oSquare')
+//         squares[i].innerHTML = currentPlayer
+//         // board[num][num] = currentPlayer
+//         currentPlayer = playerX
+//         displayCurrentPlayer.innerHTML = currentPlayer
+//       }
+//     } else alert(`invalid move`)
+//   })
+// }
 
 // // changeTurns function
 // function changeTurns(num) {
@@ -179,15 +197,6 @@ for (let i = 0; i < squares.length; i++) {
 //   }
 // }
 
-//how to loop in a 2d array
-for (let i = 0; i < board.length; i++) {
-  let subarray = board[i]
-
-  for (let j = 0; j < subarray.length; j++) {
-    console.log(subarray[j])
-  }
-}
-
 // RECURSION
 // function checkWin(n)
 // {
@@ -198,3 +207,40 @@ for (let i = 0; i < board.length; i++) {
 //   else
 //   return
 // }
+
+// *
+//     A factorial is where if you do factorial of 5, which is abbreviated as 5!, it is evaluated as 5 * 4 * 3 * 2 * 1 = 120
+
+//     Some examples:
+//     5! = 5 * 4 * 3 * 2 * 1 = 120
+//     3! = 3 * 2 * 1 = 6
+//     6! = 6 * 5 * 4 * 3 * 2 * 1 = 720
+// */
+
+// function factorial(num) {
+//     if(num < 1 || num % 1 !== 0) return "Please enter an integer that's more than 1"
+//     // if(num === 1) return 1;
+//     // return num * factorial(num - 1);
+//     return num === 1 ? 1 : num * factorial(num - 1);
+// }
+
+// console.log(factorial(-5)); //"Please enter an integer that's more than 1"
+// console.log(factorial(1.5)); //"Please enter an integer that's more than 1"
+// console.log(factorial(3)); //6
+// // factorial(3) returns 3 * factorial(2)
+// // factorial(2) returns 2 * factorial(1)
+// // factorial(1) returns 1
+// // factorial(2) returns 2 * 1 = 2;
+// // factorial(3) returns 3 * 2 = 6;
+// console.log(factorial(5)); //120
+// // factorial(5) returns 5 * factorial(4)
+// // factorial(4) returns 4 * factorial(3)
+// // factorial(3) returns 3 * factorial(2)
+// // factorial(2) returns 2 * factorial(1)
+// // factorial(1) returns 1
+// // factorial(2) returns 2 * 1 = 2;
+// // factorial(3) returns 3 * 2 = 6;
+// // factorial(4) returns 4 * 6 = 24;
+// // factorial(5) returns 5 * 24 = 120;
+// console.log(factorial(6)); //720
+// console.log(factorial(15));

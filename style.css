@@ -124,15 +124,16 @@ ul div{
   width: 364px;
   height: 312px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .grid div{
   border: solid 1px black;
-  width: 50px;
+  width: 100%;
   height: 50px;
+  display: flex
 }
-.grid div:hover{
+.grid div div:hover{
   background-color: aquamarine;
 }
 
