@@ -5,6 +5,10 @@ const modal = document.querySelector('#modal')
 const openBtn = document.querySelector('#openModal')
 const closeBtn = document.querySelector('#close')
 const reset = document.querySelector('#playAgain')
+const checkHorizontal = document.querySelector('#checkHorizontal')
+const checkVertical = document.querySelector('#checkVertical')
+const checkDiagonal1 = document.querySelector('#checkDiagonal1')
+const checkDiagonal2 = document.querySelector('#checkDiagonal2')
 
 const openModal = () => {
   modal.style.display = 'block'
@@ -74,22 +78,42 @@ class GameBoard {
   }
 
   checkForWinner() {
-    for (let r = 0; r < squares.length; r++) {
-      for (let c = 0; c < subarray.length; c++) {
-        const node = subarray[c]
-        const coords = {
-          x: r,
-          y: c
+    // have a method call 4 other methods
+
+    //
+    // checkForHor()
+    // {
+    //   for (let i = 0; i < squares.length; i++) {
+    //     let subarray = squares[i].children
+    //     for (let j = 0; j < subarray.length; j++) {
+    //       console.log(`${j} has been checked`)
+    //     }
+    //   }
+    // }
+
+    //
+    checkForVer()
+    {
+      for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board[i].length; j++) {
+          console.log(`${j} has been checked`)
         }
-        console.log(node, coords)
       }
     }
   }
+  // check diag1
+  // check diag2
 
-  checkForConnectFour() {
-    checkForHorPosLine()
-    checkForHorNegLine()
-  }
+  // for (let r = 0; r < squares.length; r++) {
+  //   for (let c = 0; c < subarray.length; c++) {
+  //     const node = subarray[c]
+  //     const coords = {
+  //       x: r,
+  //       y: c
+  //     }
+  //     console.log(node, coords)
+  //   }
+  // }
 }
 /// this is the end of the class
 
@@ -100,6 +124,7 @@ let board = connectFour.board
 
 // GAME LOGIC
 for (let i = 0; i < squares.length; i++) {
+  //why are we using .children instead of .length?
   let subarray = squares[i].children
   for (let j = 0; j < subarray.length; j++) {
     // console.log(subarray[j].tagName)
@@ -128,9 +153,10 @@ for (let i = 0; i < squares.length; i++) {
         subarray[j].classList.add('oSquare')
         subarray[j].innerHTML = currentPlayer
         currentPlayer = playerX
-      } else alert(`invalid move`)
-
-      // checkForConnectFour()
+      } else {
+        alert(`invalid move`)
+      }
+      // connectFour.checkForWinner()
     })
 
     const playAgain = () => {
@@ -140,6 +166,60 @@ for (let i = 0; i < squares.length; i++) {
       subarray[j].innerText = ''
     }
     reset.addEventListener('click', playAgain)
+
+    // const checkForHor = () => {
+    //   console.log(`checkForHor run`)
+    //   for (let i = 0; i < squares.length; i++) {
+    //     for (let j = 0; j < subarray.length; j++) {
+    //       console.log(`j has been checked`)
+    //     }
+    //     for (let k = 0; k < subarray.length - 1; k++) {
+    //       if (subarray[k].innerText === subarray[k + 1].innerText) {
+    //         console.log('we have a match')
+    //       }
+    //     }
+    //   }
+    // }
+    // checkHorizontal.addEventListener('click', checkForHor)
+
+    const countConsecutiveElements = () => {
+      let result = ''
+      let counter = 1
+      for (let i = 0; i < squares.length; i++) {
+        for (let j = 0; j < squares[i].length; j++) {
+          if (subarray[j].innerText === subarray[j + i].innerText) {
+            counter++
+            if ((counter = 4 && subarray[j].innerText === playerX)) {
+              console.log('X has connnected 4')
+            } else if ((counter = 4 && subarray[j].innerText === playerO)) {
+              console.log('O has connnected 4')
+            }
+          } else {
+            result += subarray[j].innerText + counter
+            counter = 1
+          }
+        }
+        return result
+      }
+    }
+    checkHorizontal.addEventListener('click', countConsecutiveElements)
+
+    // function countConsecutiveElements(array) {
+    //   let result = ''
+    //   let counter = 1
+    //   for (let i = 0; i < squares.length; i++) {
+    //     for (let j = 0; j < subarray.length; j++) {
+    //       if (subarray[j].innerText === subarray[j + i].innerText) {
+    //         counter++
+    //       } else {
+    //         result += array[i].innerText + counter
+    //         counter = 1
+    //       }
+    //     }
+    //     return result
+    //   }
+    // }
+    // checkHorizontal.addEventListener('click', countConsecutiveElements)
   }
 }
 
@@ -184,18 +264,35 @@ function checkForHorNegLine(n) {
 
 // HORIZONTAL WIN CHECK
 //squareClicked, subarray[j+1], subarray[j+2], subarray[j+3]
-//squareClicked, subarray[j-1], subarray[j-2], subarray[j-3]
 
-// VERTICAL WIN CHECK
-//squareClicked, squares[i + 1].children[j], squares[i + 2].children[j], squares[i + 3].children[j]
+// // VERTICAL WIN CHECK
+// squares[i].children[j], squares[i + 1].children[j], squares[i + 2].children[j], squares[i + 3].children[j]
 
-// DIAGONAL WIN CHECK (TOP LEFT - BOTTOM RIGHT)
-//squareClicked, squares[i + 1].children[j+1], squares[i + 2].children[j+2], squares[i + 3].children[j+3]
-//squareClicked, squares[i - 1].children[j-1], squares[i - 2].children[j-2], squares[i - 3].children[j-3]
+// // DIAGONAL WIN CHECK (TOP LEFT - BOTTOM RIGHT)
+// squares[2].children[0], squares[i + 1].children[j+1], squares[i + 2].children[j+2], squares[i + 3].children[j+3]
 
-// DIAGONAL WIN CHECK (BOTTOM LEFT - TOP RIGHT)
-//squareClicked, squares[i - 1].children[j+1], squares[i - 2].children[j+2], squares[i - 3].children[j+3]
-//squareClicked, squares[i + 1].children[j-1], squares[i + 2].children[j-2], squares[i + 3].children[j-3]
+// squares[1].children[0], squares[i + 1].children[j+1], squares[i + 2].children[j+2], squares[i + 3].children[j+3]
+
+// squares[0].children[0], squares[i + 1].children[j+1], squares[i + 2].children[j+2], squares[i + 3].children[j+3]
+
+// squares[0].children[1], squares[i + 1].children[j+1], squares[i + 2].children[j+2], squares[i + 3].children[j+3]
+
+// squares[0].children[2], squares[i + 1].children[j+1], squares[i + 2].children[j+2], squares[i + 3].children[j+3]
+
+// squares[0].children[3], squares[i + 1].children[j+1], squares[i + 2].children[j+2], squares[i + 3].children[j+3]
+
+// // DIAGONAL WIN CHECK (BOTTOM LEFT - TOP RIGHT)
+// squares[0].children[3], squares[i + 1].children[j-1], squares[i + 2].children[j-2], squares[i + 3].children[j-3]
+
+// squares[0].children[4], squares[i + 1].children[j-1], squares[i + 2].children[j-2], squares[i + 3].children[j-3]
+
+// squares[0].children[5], squares[i + 1].children[j-1], squares[i + 2].children[j-2], squares[i + 3].children[j-3]
+
+// squares[0].children[6], squares[i + 1].children[j-1], squares[i + 2].children[j-2], squares[i + 3].children[j-3]
+
+// squares[1].children[6], squares[i + 1].children[j-1], squares[i + 2].children[j-2], squares[i + 3].children[j-3]
+
+// squares[2].children[6], squares[i + 1].children[j-1], squares[i + 2].children[j-2], squares[i + 3].children[j-3]
 
 // function factorial(num) {
 //     if(num < 1 || num % 1 !== 0) return "Please enter an integer that's more than 1"
