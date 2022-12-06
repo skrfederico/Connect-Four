@@ -80,40 +80,64 @@ class GameBoard {
   checkForWinner() {
     // have a method call 4 other methods
 
-    //
-    // checkForHor()
-    // {
-    //   for (let i = 0; i < squares.length; i++) {
-    //     let subarray = squares[i].children
-    //     for (let j = 0; j < subarray.length; j++) {
-    //       console.log(`${j} has been checked`)
-    //     }
-    //   }
-    // }
+    function checkForHor() {
+      let noughtscounter = 1
+      let crossescounter = 1
 
-    //
-    checkForVer()
-    {
-      for (let i = 0; i < board.length; i++) {
-        for (let j = 0; j < board[i].length; j++) {
-          console.log(`${j} has been checked`)
+      for (let i = 0; i < squares.length; i++) {
+        let subarray = squares[i].children
+        for (let j = 0; j < subarray.length; j++) {
+          if (subarray[j + 1] && subarray[j + 1].innerText) {
+            if (subarray[j].innerText === 'X') {
+              if (subarray[j].innerText === subarray[j + 1].innerText) {
+                crossescounter++
+                console.log(`X count in ${subarray[j]} is ${crossescounter}`)
+              } else {
+                return
+              }
+              if (crossescounter === 4) {
+                alert`X connected 4`
+              }
+            } else if (subarray[j].innerText === 'O') {
+              if (subarray[j].innerText === subarray[j + 1].innerText) {
+                noughtscounter++
+                console.log(`O count is ${noughtscounter}`)
+              } else {
+                return
+              }
+              if (noughtscounter === 4) {
+                alert`O connected 4`
+              }
+            }
+          }
         }
       }
     }
-  }
-  // check diag1
-  // check diag2
+    checkForHor()
 
-  // for (let r = 0; r < squares.length; r++) {
-  //   for (let c = 0; c < subarray.length; c++) {
-  //     const node = subarray[c]
-  //     const coords = {
-  //       x: r,
-  //       y: c
-  //     }
-  //     console.log(node, coords)
-  //   }
-  // }
+    //
+    //   checkForVer()
+    //   {
+    //     for (let i = 0; i < board.length; i++) {
+    //       for (let j = 0; j < board[i].length; j++) {
+    //         console.log(`${j} has been checked`)
+    //       }
+    //     }
+    //   }
+    // }
+    // check diag1
+    // check diag2
+
+    // for (let r = 0; r < squares.length; r++) {
+    //   for (let c = 0; c < subarray.length; c++) {
+    //     const node = subarray[c]
+    //     const coords = {
+    //       x: r,
+    //       y: c
+    //     }
+    //     console.log(node, coords)
+    //   }
+  }
 }
 /// this is the end of the class
 
@@ -156,7 +180,8 @@ for (let i = 0; i < squares.length; i++) {
       } else {
         alert(`invalid move`)
       }
-      // connectFour.checkForWinner()
+
+      connectFour.checkForWinner()
     })
 
     const playAgain = () => {
@@ -223,17 +248,6 @@ for (let i = 0; i < squares.length; i++) {
   }
 }
 
-// RECURSION
-// function checkWin(n)
-// {
-//   //1) base case
-//   if(board[i][j] == playerX)
-//   //2) recursive call to itself
-//   checkWin(next square)
-//   else
-//   return
-// }
-
 // *
 //     A factorial is where if you do factorial of 5, which is abbreviated as 5!, it is evaluated as 5 * 4 * 3 * 2 * 1 = 120
 
@@ -244,26 +258,8 @@ for (let i = 0; i < squares.length; i++) {
 // */
 
 //PSEUDO CODE FOR WINNING COMBINATIONS
-function checkForHorPosLine(n) {
-  // exit condition
-  if ((n = subarray[j + 3].classList.contains('playerX')))
-    // || if(n = (subarray[j+3].innerHTML = playerX))
-    return
-  checkForHorPosLine(subarray[j + 1].classList.contains('playerX'))
-  // || checkForHorPosLine((subarray[j+1]).innerHTML = playerX)
-}
-
-function checkForHorNegLine(n) {
-  // exit condition
-  if ((n = subarray[j - 3].classList.contains('playerX')))
-    // || if(n = (subarray[j+3].innerHTML = playerX))
-    return
-  checkForHorNegLine(subarray[j - 1].classList.contains('playerX'))
-  // || checkForHorNegLine((subarray[j-1]).innerHTML = playerX)
-}
-
 // HORIZONTAL WIN CHECK
-//squareClicked, subarray[j+1], subarray[j+2], subarray[j+3]
+//subarray[0], subarray[j+1], subarray[j+2], subarray[j+3]
 
 // // VERTICAL WIN CHECK
 // squares[i].children[j], squares[i + 1].children[j], squares[i + 2].children[j], squares[i + 3].children[j]
