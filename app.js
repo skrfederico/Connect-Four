@@ -80,44 +80,142 @@ class GameBoard {
   checkForWinner() {
     // have a method call 4 other methods
 
-    function checkForHor() {
-      let noughtscounter = 1
-      let crossescounter = 1
+    // function checkForHor() {
+    //   let noughtscounter = 1
+    //   let crossescounter = 1
 
-      for (let i = 0; i < squares.length; i++) {
-        let subarray = squares[i].children
-        for (let j = 0; j < subarray.length; j++) {
-          if (subarray[j + 1] && subarray[j + 1].innerText) {
-            if (subarray[j].innerText === 'X') {
-              if (subarray[j].innerText === subarray[j + 1].innerText) {
-                crossescounter++
-                console.log(`X count in ${subarray[j]} is ${crossescounter}`)
+    //   for (let i = 0; i < squares.length; i++) {
+    //     let subarray = squares[i].children
+    //     for (let j = 0; j < subarray.length; j++) {
+    //       if (subarray[j + 1] && subarray[j + 1].innerText) {
+    //         if (subarray[j].innerText === 'X') {
+    //           if (subarray[j].innerText === subarray[j + 1].innerText) {
+    //             crossescounter++
+    //             console.log(`X count is ${crossescounter} horizontally`)
+    //           } else {
+    //             return
+    //           }
+    //           if (crossescounter === 4) {
+    //             alert`X connected 4 horizontally`
+    //           }
+    //         } else if (subarray[j].innerText === 'O') {
+    //           if (subarray[j].innerText === subarray[j + 1].innerText) {
+    //             noughtscounter++
+    //             console.log(`O count is ${noughtscounter} horizontally`)
+    //           } else {
+    //             return
+    //           }
+    //           if (noughtscounter === 4) {
+    //             alert`O connected 4 horizontally`
+    //           }
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
+    // checkForHor()
+
+    // squares[i].children[j], squares[i + 1].children[j], squares[i + 2].children[j], squares[i + 3].children[j]
+
+    // function checkForVer() {
+    //   let verNoughtsCounter = 1
+    //   let verCrossesCounter = 1
+
+    //   for (let i = 0; i < squares.length; i++) {
+    //     let subarray = squares[i].children
+    //     for (let j = 0; j < subarray.length; j++) {
+    //       if (subarray[j + 1] && subarray[j + 1].innerText) {
+    //         if (squares[i].children[j].innerText === 'X') {
+    //           if (
+    //             squares[i].children[j].innerText ===
+    //             squares[i].children[j + 1].innerText
+    //           ) {
+    //             verCrossesCounter++
+    //             console.log(`X count is ${verCrossesCounter}`)
+    //           } else {
+    //             return
+    //           }
+    //           if (verCrossesCounter === 4) {
+    //             alert`X connected 4 vertically`
+    //           }
+    //         } else if (squares[i].children[j].innerText === 'O') {
+    //           if (
+    //             squares[i].children[j].innerText ===
+    //             squares[i].children[j + 1].innerText
+    //           ) {
+    //             verNoughtsCounter++
+    //             console.log(`O count is ${verNoughtsCounter}`)
+    //           } else {
+    // return
+    //           }
+    //           if (verNoughtsCounter === 4) {
+    //             alert`O connected 4 vertically`
+    //           }
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
+    // checkForVer()
+
+    //
+    // squares[i].children[j], squares[i + 1].children[j], squares[i + 2].children[j], squares[i + 3].children[j]
+
+    function checkForVer() {
+      let verNoughtsCounter = 1
+      let verCrossesCounter = 1
+
+      for (let r = 0; r < squares.length; r++) {
+        let subarray = squares[r].children
+        for (let c = 0; c < subarray.length; c++) {
+          const node = subarray[c]
+          const coords = {
+            x: r,
+            y: c
+          }
+
+          // if (
+          //   squares[r].children[c + 1] &&
+          //   squares[r].children[c + 1].innerText
+          // ) {
+          if (
+            squares[r + 1].children[c] &&
+            squares[r + 1].children[c].innerText
+          ) {
+            if (squares[r].children[c].innerText === 'X') {
+              if (
+                squares[r].children[c].innerText ===
+                squares[r + 1].children[c].innerText
+              ) {
+                verCrossesCounter++
+                console.log(`X count is ${verCrossesCounter}`)
               } else {
                 return
               }
-              if (crossescounter === 4) {
-                alert`X connected 4`
-              }
-            } else if (subarray[j].innerText === 'O') {
-              if (subarray[j].innerText === subarray[j + 1].innerText) {
-                noughtscounter++
-                console.log(`O count is ${noughtscounter}`)
-              } else {
-                return
-              }
-              if (noughtscounter === 4) {
-                alert`O connected 4`
+              if (verCrossesCounter === 4) {
+                alert`X connected 4 vertically`
               }
             }
+          } else if (squares[r].children[c].innerText === 'O') {
+            if (
+              squares[r].children[c].innerText ===
+              squares[r + 1].children[c].innerText
+            ) {
+              verNoughtsCounter++
+              console.log(`O count is ${verNoughtsCounter}`)
+            } else {
+              return
+            }
+            if (verNoughtsCounter === 4) {
+              alert`O connected 4 vertically`
+            }
           }
+          // console.log(node, coords)
         }
       }
     }
-    checkForHor()
+    checkForVer()
 
-    //
-    //   checkForVer()
-    //   {
     //     for (let i = 0; i < board.length; i++) {
     //       for (let j = 0; j < board[i].length; j++) {
     //         console.log(`${j} has been checked`)
@@ -127,16 +225,6 @@ class GameBoard {
     // }
     // check diag1
     // check diag2
-
-    // for (let r = 0; r < squares.length; r++) {
-    //   for (let c = 0; c < subarray.length; c++) {
-    //     const node = subarray[c]
-    //     const coords = {
-    //       x: r,
-    //       y: c
-    //     }
-    //     console.log(node, coords)
-    //   }
   }
 }
 /// this is the end of the class
