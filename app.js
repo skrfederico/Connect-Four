@@ -37,6 +37,47 @@ function setBoard() {
   document.getElementById('turn').style.display = 'flex'
 }
 
+function placeWinningToken() {
+  for (let i = 0; i < sb1squares.length; i++) {
+    if (sb1squares[i].id === 'sb1-col-row1') {
+      if (winningPlayer === playerX) {
+        sb1squares[i].classList.add('xSquare')
+        sb1squares[i].innerHTML = winningPlayer
+      }
+    } else if (sb1squares[i + 1].innerText === playerX) {
+      sb1squares[i].classList.add('xSquare')
+      sb1squares[i].innerHTML = winningPlayer
+    }
+    document.getElementById('message').innerHTML = ``
+    document.getElementById('result').innerHTML = ``
+  }
+  //  HELP! how can I make it DRY?
+  for (let j = 0; j < sb2squares.length; j++) {
+    if (sb2squares[j].id === 'sb2-col-row1') {
+      if (winningPlayer === playerO) {
+        sb2squares[j].classList.add('oSquare')
+        sb2squares[j].innerHTML = winningPlayer
+      }
+    } else if (sb1squares[j + 1].innerText === playerO) {
+      sb2squares[j].classList.add('oSquare')
+      sb2squares[j].innerHTML = winningPlayer
+    }
+    document.getElementById('message').innerHTML = ``
+    document.getElementById('result').innerHTML = ``
+  }
+}
+
+function winningActions() {
+  displayCurrentPlayer.style.display = 'none'
+  document.getElementById(
+    'message'
+  ).innerHTML = `${winningPlayer} has connected four!`
+  document.getElementById(
+    'result'
+  ).innerHTML = `Hooray! <br><button onclick="placeWinningToken()">Place Token</button><br>`
+  // setTimeout(playAgain, 3000)
+}
+
 const squares = document.querySelectorAll('.grid>div')
 const sb1squares = document.querySelectorAll('.sb1-column div')
 const sb2squares = document.querySelectorAll('.sb2-column div')
@@ -57,10 +98,10 @@ class GameBoard {
   }
 
   // INSIDE GAME LOGIC
-  placeToken(player1, x) {
-    this.board[x][y] = player1
-    this.checkForWinner()
-  }
+  // placeToken(player1, x) {
+  //   this.board[x][y] = player1
+  //   this.checkForWinner()
+  // }
 
   refreshBoard() {
     //MY CODE: ARROW FUNCTION INSIDE GAME LOGIC
@@ -85,8 +126,11 @@ class GameBoard {
               if (subarray[j].innerText === subarray[j + 1].innerText) {
                 if (subarray[j + 1].innerText === subarray[j + 2].innerText) {
                   if (subarray[j + 2].innerText === subarray[j + 3].innerText) {
-                    alert`X connected 4 horizontally`
                     winningPlayer = playerX
+                    alert`X connected 4 horizontally`
+                    winningActions()
+                    //HELP how do I call a method?
+                    // refreshBoard()
                     // connectFour.refreshBoard(board)
                     // connectFour.refreshBoard()
                     // playAgain()
@@ -97,8 +141,9 @@ class GameBoard {
               if (subarray[j].innerText === subarray[j + 1].innerText) {
                 if (subarray[j + 1].innerText === subarray[j + 2].innerText) {
                   if (subarray[j + 2].innerText === subarray[j + 3].innerText) {
-                    alert`O connected 4 horizontally`
                     winningPlayer = playerO
+                    alert`O connected 4 horizontally`
+                    winningActions()
                   }
                 }
               }
@@ -137,6 +182,8 @@ class GameBoard {
                     squares[r + 3].children[c].innerText
                   ) {
                     alert`X connected 4 vertically`
+                    message.innerHTML = `3 seconds to place your token in the scoreboard`
+                    result.innerHTML = `4 connected`
                   }
                 }
               }
@@ -383,52 +430,46 @@ for (let i = 0; i < squares.length; i++) {
       subarray[j].classList.remove('xSquare')
       subarray[j].classList.remove('oSquare')
       subarray[j].innerText = ''
+      displayCurrentPlayer.style.display = `inline`
     }
     reset.addEventListener('click', playAgain)
     // reset.addEventListener('click', connectFour.refreshBoard())
-
-    const winningActions = () => {
-      message.innerHTML = `3 seconds to place your token in the scoreboard`
-      result.innerHTML = `4 connected`
-      setTimeout(playAgain, 3000)
-    }
   }
 }
 
-for (let i = 0; i < sb1squares.length; i++) {
-  sb1squares[i].addEventListener(
-    'click',
-    () => {
-      if (sb1squares[i].id === 'sb1-col-row1') {
-        if (winningPlayer === playerX) {
-          sb1squares[i].classList.add('xSquare')
-          sb1squares[i].innerHTML = winningPlayer
-        }
-      } else if (sb1squares[i + 1].innerText === playerX) {
-        sb1squares[i].classList.add('xSquare')
-        sb1squares[i].innerHTML = winningPlayer
-        alert`one at a time cowboy`
-      }
-    },
-    { once: true }
-  )
-}
+// for (let i = 0; i < sb1squares.length; i++) {
+//   sb1squares[i].addEventListener(
+//     'click',
+//     () => {
+//       if (sb1squares[i].id === 'sb1-col-row1') {
+//         if (winningPlayer === playerX) {
+//           sb1squares[i].classList.add('xSquare')
+//           sb1squares[i].innerHTML = winningPlayer
+//         }
+//       } else if (sb1squares[i + 1].innerText === playerX) {
+//         sb1squares[i].classList.add('xSquare')
+//         sb1squares[i].innerHTML = winningPlayer
+//       }
+//     },
+//     { once: true }
+//   )
+// }
 
-for (let i = 0; i < sb2squares.length; i++) {
-  sb2squares[i].addEventListener('click', () => {
-    if (sb2squares[i].id === 'sb2-col-row1') {
-      if (winningPlayer === playerO) {
-        sb2squares[i].classList.add('oSquare')
-        sb2squares[i].innerHTML = winningPlayer
-      }
-    } else if (sb2squares[i + 1].innerText === playerO) {
-      sb2squares[i].classList.add('oSquare')
-      sb2squares[i].innerHTML = winningPlayer
-      alert`one at a time cowboy`
-      return
-    }
-  })
-}
+// for (let i = 0; i < sb2squares.length; i++) {
+//   sb2squares[i].addEventListener('click', () => {
+//     if (sb2squares[i].id === 'sb2-col-row1') {
+//       if (winningPlayer === playerO) {
+//         sb2squares[i].classList.add('oSquare')
+//         sb2squares[i].innerHTML = winningPlayer
+//       }
+//     } else if (sb2squares[i + 1].innerText === playerO) {
+//       sb2squares[i].classList.add('oSquare')
+//       sb2squares[i].innerHTML = winningPlayer
+//       alert`one at a time cowboy`
+//       return
+//     }
+//   })
+// }
 
 //PSEUDO CODE FOR WINNING COMBINATIONS
 
