@@ -5,10 +5,6 @@ const modal = document.querySelector('#modal')
 const openBtn = document.querySelector('#openModal')
 const closeBtn = document.querySelector('#close')
 const reset = document.querySelector('#playAgain')
-// const checkHorizontal = document.querySelector('#checkHorizontal')
-// const checkVertical = document.querySelector('#checkVertical')
-// const checkDiagonal1 = document.querySelector('#checkDiagonal1')
-// const checkDiagonal2 = document.querySelector('#checkDiagonal2')
 
 const openModal = () => {
   modal.style.display = 'block'
@@ -51,6 +47,7 @@ const displayCurrentMatch = document.getElementById('current-match')
 const playerX = 'X'
 const playerO = 'O'
 let currentPlayer = playerX
+let winningPlayer
 
 let matchNumber = 1
 
@@ -79,8 +76,6 @@ class GameBoard {
   }
 
   checkForWinner() {
-    // have a method call 4 other methods
-
     function checkForHor() {
       for (let i = 0; i < squares.length; i++) {
         let subarray = squares[i].children
@@ -91,6 +86,10 @@ class GameBoard {
                 if (subarray[j + 1].innerText === subarray[j + 2].innerText) {
                   if (subarray[j + 2].innerText === subarray[j + 3].innerText) {
                     alert`X connected 4 horizontally`
+                    winningPlayer = playerX
+                    // connectFour.refreshBoard(board)
+                    // connectFour.refreshBoard()
+                    // playAgain()
                   }
                 }
               }
@@ -99,6 +98,7 @@ class GameBoard {
                 if (subarray[j + 1].innerText === subarray[j + 2].innerText) {
                   if (subarray[j + 2].innerText === subarray[j + 3].innerText) {
                     alert`O connected 4 horizontally`
+                    winningPlayer = playerO
                   }
                 }
               }
@@ -159,17 +159,12 @@ class GameBoard {
               }
             }
           }
-          // }
           // console.log(node, coords)
         }
       }
     }
     checkForVer()
 
-    //pseudo for diag 1
-    // squares[2].children[0], squares[i + 1].children[j+1], squares[i + 2].children[j+2], squares[i + 3].children[j+3]
-
-    // squares[1].children[0], squares[i + 1].children[j+1], squares[i + 2].children[j+2], squares[i + 3].children[j+3]
     // check diag1
     function checkForDiagOne() {
       let diagOneNoughtsCounter = 1
@@ -352,7 +347,9 @@ for (let i = 0; i < squares.length; i++) {
           subarray[j].innerHTML = currentPlayer
           currentPlayer = playerO
           displayCurrentPlayer.innerHTML = currentPlayer
-          document.getElementById('message').innerHTML = ``
+          document.getElementById(
+            'message'
+          ).innerHTML = `<span id="current-player"></span>`
         } else {
           subarray[j].classList.add('oSquare')
           subarray[j].innerHTML = currentPlayer
@@ -389,17 +386,63 @@ for (let i = 0; i < squares.length; i++) {
     }
     reset.addEventListener('click', playAgain)
     // reset.addEventListener('click', connectFour.refreshBoard())
+
+    const winningActions = () => {
+      message.innerHTML = `3 seconds to place your token in the scoreboard`
+      result.innerHTML = `4 connected`
+      setTimeout(playAgain, 3000)
+    }
   }
 }
 
-//PSEUDO CODE FOR WINNING COMBINATIONS
-// HORIZONTAL WIN CHECK
-//subarray[0], subarray[j+1], subarray[j+2], subarray[j+3]
+for (let i = 0; i < sb1squares.length; i++) {
+  sb1squares[i].addEventListener(
+    'click',
+    () => {
+      if (sb1squares[i].id === 'sb1-col-row1') {
+        if (winningPlayer === playerX) {
+          sb1squares[i].classList.add('xSquare')
+          sb1squares[i].innerHTML = winningPlayer
+        }
+      } else if (sb1squares[i + 1].innerText === playerX) {
+        sb1squares[i].classList.add('xSquare')
+        sb1squares[i].innerHTML = winningPlayer
+        alert`one at a time cowboy`
+      }
+    },
+    { once: true }
+  )
+}
 
-// // VERTICAL WIN CHECK
-// squares[i].children[j], squares[i + 1].children[j], squares[i + 2].children[j], squares[i + 3].children[j]
+for (let i = 0; i < sb2squares.length; i++) {
+  sb2squares[i].addEventListener('click', () => {
+    if (sb2squares[i].id === 'sb2-col-row1') {
+      if (winningPlayer === playerO) {
+        sb2squares[i].classList.add('oSquare')
+        sb2squares[i].innerHTML = winningPlayer
+      }
+    } else if (sb2squares[i + 1].innerText === playerO) {
+      sb2squares[i].classList.add('oSquare')
+      sb2squares[i].innerHTML = winningPlayer
+      alert`one at a time cowboy`
+      return
+    }
+  })
+}
+
+//PSEUDO CODE FOR WINNING COMBINATIONS
 
 // // DIAGONAL WIN CHECK (TOP LEFT - BOTTOM RIGHT)
+//STARTING POINTS
+/*
+squares[2].children[0]
+squares[1].children[0]
+squares[0].children[0]
+squares[0].children[1]
+squares[0].children[2]
+squares[0].children[3]
+*/
+
 // squares[2].children[0], squares[i + 1].children[j+1], squares[i + 2].children[j+2], squares[i + 3].children[j+3]
 
 // squares[1].children[0], squares[i + 1].children[j+1], squares[i + 2].children[j+2], squares[i + 3].children[j+3]
@@ -413,6 +456,16 @@ for (let i = 0; i < squares.length; i++) {
 // squares[0].children[3], squares[i + 1].children[j+1], squares[i + 2].children[j+2], squares[i + 3].children[j+3]
 
 // // DIAGONAL WIN CHECK (BOTTOM LEFT - TOP RIGHT)
+//STARTING POINTS
+/*
+squares[0].children[3]
+squares[0].children[4]
+squares[0].children[5]
+squares[0].children[6]
+squares[1].children[6]
+squares[2].children[6]
+*/
+
 // squares[0].children[3], squares[i + 1].children[j-1], squares[i + 2].children[j-2], squares[i + 3].children[j-3]
 
 // squares[0].children[4], squares[i + 1].children[j-1], squares[i + 2].children[j-2], squares[i + 3].children[j-3]

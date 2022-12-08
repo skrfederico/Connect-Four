@@ -27,7 +27,6 @@
     </div>
   </div>
   <p id="message"></p>
-
 <div id="chooseName" class="choice">Who's playing?<br>
   Name: <input type="text" id="p1name" name="value" value="Player 1"><br>
   <button onclick="setPlayerName()">Continue</button><br>
@@ -43,18 +42,12 @@
 </ul> 
 </div> -->
 </div>
-<h3 id="turn"><span id="current-player"> X chips</span>
-...we are waiting for you</h3>
+<h3 id="turn"><span id="current-player">X</span></h3>
 <h3 id="result"></h3>
 <button id="playAgain">RESET</button><br>
-<!-- <button id="checkHorizontal">CHECK HOR</button><br>
-<button id="checkVertical">CHECK VER</button><br>
-<button id="checkDiagonal1">CHECK DIAG1</button><br>
-<button id="checkDiagonal2">CHECK DIAG2</button><br> -->
 <div id="playArea" class="container">
-  <h3>match#<span id="current-match">1</span></h3>
+  <!-- <h3>match#<span id="current-match">1</span></h3> -->
 
- 
   <div id="score1" class="scoreboard">
     <div><p>Finish line</p></div>
     <ul id="p1column" class="sb1-column">
@@ -67,7 +60,7 @@
       <div id="sb1-col-row4"></div>
       <div id="sb1-col-row3"></div>
       <div id="sb1-col-row2"></div>
-      <div id ="sb1-col-row1" class="bottom">Not here!</div>  
+      <div id ="sb1-col-row1">Start here!</div>  
 
     </ul>
       <div><p>Start line</p></div>
@@ -143,8 +136,7 @@
     <div id="sb2-col-row3"></div>
     <div id="sb2-col-row2"></div>
     <div id ="sb2-col-row1" class="bottom">Not here!</div>  
-    
-  
+      
   </ul>
   <div><p>Start line</p></div>
   </div>
