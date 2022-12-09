@@ -1,20 +1,20 @@
 console.log('it works')
 
-// MODAL
-const modal = document.querySelector('#modal')
-const openBtn = document.querySelector('#openModal')
-const closeBtn = document.querySelector('#close')
+// // MODAL
+// const modal = document.querySelector('#modal')
+// const openBtn = document.querySelector('#openModal')
+// const closeBtn = document.querySelector('#close')
 const reset = document.querySelector('#playAgain')
 
-const openModal = () => {
-  modal.style.display = 'block'
-}
-openBtn.addEventListener('click', openModal)
+// const openModal = () => {
+//   modal.style.display = 'block'
+// }
+// openBtn.addEventListener('click', openModal)
 
-const closeModal = () => {
-  modal.style.display = 'none'
-}
-closeBtn.addEventListener('click', closeModal)
+// const closeModal = () => {
+//   modal.style.display = 'none'
+// }
+// closeBtn.addEventListener('click', closeModal)
 
 // SETTING UP THE GAME
 function setPlayerName() {
@@ -37,51 +37,24 @@ function setBoard() {
   document.getElementById('turn').style.display = 'flex'
 }
 
-function placeWinningToken() {
-  for (let i = 0; i < sb1squares.length; i++) {
-    if (sb1squares[i].id === 'sb1-col-row1') {
-      if (winningPlayer === playerX) {
-        sb1squares[i].classList.add('xSquare')
-        sb1squares[i].innerHTML = winningPlayer
+function placeWinningToken(squares, player, cellname) {
+  let squareName = cellname === 'sb1-col-row1' ? 'xSquare' : 'oSquare'
+  for (let i = 0; i < squares.length; i++) {
+    if (squares[i].id === cellname) {
+      if (winningPlayer === player) {
+        squares[i].classList.add(squareName)
+        squares[i].innerHTML = winningPlayer
       }
-    } else if (sb1squares[i + 1].innerText === playerX) {
-      sb1squares[i].classList.add('xSquare')
-      sb1squares[i].innerHTML = winningPlayer
-      if (sb1squares[0].innerHTML === playerX) {
+    } else if (squares[i + 1].innerText === player) {
+      squares[i].classList.add(squareName)
+      squares[i].innerHTML = winningPlayer
+      if (squares[0].innerHTML === player) {
         ;`You've won!`
       }
     }
     document.getElementById('message').innerHTML = ``
     document.getElementById('result').innerHTML = ``
   }
-  //  HELP! how can I make it DRY?
-  for (let j = 0; j < sb2squares.length; j++) {
-    if (sb2squares[j].id === 'sb2-col-row1') {
-      if (winningPlayer === playerO) {
-        sb2squares[j].classList.add('oSquare')
-        sb2squares[j].innerHTML = winningPlayer
-      }
-    } else if (sb1squares[j + 1].innerText === playerO) {
-      sb2squares[j].classList.add('oSquare')
-      sb2squares[j].innerHTML = winningPlayer
-      if (sb1squares[0].innerHTML === playerO) {
-        ;`You've won!`
-      }
-    }
-    document.getElementById('message').innerHTML = ``
-    document.getElementById('result').innerHTML = ``
-  }
-}
-
-function winningActions() {
-  displayCurrentPlayer.style.display = 'none'
-  document.getElementById(
-    'message'
-  ).innerHTML = `${winningPlayer} has connected four!`
-  document.getElementById(
-    'result'
-  ).innerHTML = `Hooray! <br><button onclick="placeWinningToken()">Place Token</button><br>`
-  // setTimeout(playAgain, 3000)
 }
 
 const squares = document.querySelectorAll('.grid>div')
@@ -140,11 +113,6 @@ class GameBoard {
                     winningPlayer = playerX
                     alert`X connected 4 horizontally`
                     winningActions()
-                    //HELP how do I call a method?
-                    // refreshBoard()
-                    // connectFour.refreshBoard(board)
-                    // connectFour.refreshBoard()
-                    // playAgain()
                   }
                 }
               }
@@ -243,6 +211,8 @@ class GameBoard {
             squares[i + 3] &&
             currentCell.innerText &&
             squares[i + 1].children[j + 1]
+            // squares[i + 1].children[j - 1]
+            // squares[i + 1].children[j + 2]
           ) {
             // if square has X
             if (squares[i].children[j].innerText === 'X') {
@@ -284,10 +254,49 @@ class GameBoard {
                     winningActions()
                   }
                 }
+              } //actual connection
+            if (
+              squares[i].children[j].innerText ===
+              squares[i + 1].children[j + 1].innerText
+              // NESTED VERSION
+            ) {
+              if (
+                squares[i + 1].children[j + 1].innerText ===
+                squares[i + 2].children[j + 2].innerText
+              ) {
+                if (
+                  squares[i + 2].children[j + 2].innerText ===
+                  squares[i + 3].children[j + 3].innerText
+                ) {
+                  winningPlayer = playerX
+                  alert`X connected 4 diagonally B`
+                  winningActions()
+                }
               }
+            }
+          } else if (squares[i].children[j].innerText === `O`) {
+            if (
+              squares[i].children[j].innerText ===
+              squares[i + 1].children[j - 1].innerText
+            ) {
+              if (
+                squares[i + 1].children[j - 1].innerText ===
+                squares[i + 2].children[j - 2].innerText
+              ) {
+                if (
+                  squares[i + 2].children[j - 2].innerText ===
+                  squares[i + 3].children[j - 3].innerText
+                ) {
+                  winningPlayer = playerO
+                  alert`O connected 4 diagonally B`
+                  winningActions()
+                }
+              }
+            }
+          }
 
-            //check diag1 version w Marlin
-            /*   if (squares[i + 1].children[j + 1].innerText === `X`) {
+          //check diag1 version w Marlin
+          /*   if (squares[i + 1].children[j + 1].innerText === `X`) {
               diagOneCrossesCounter++
               console.log(
                 diagOneCrossesCounter,
@@ -355,34 +364,6 @@ class GameBoard {
             console.log(`end diagonal matching`)
           }
         */
-
-            //   squares[i + 1].children[j + 1]
-            //   diagOneCrossesCounter++
-            //   if (squares[i + 1].children[j + 1]) {
-            //     squares[i + 2].children[j + 2]
-            //     diagOneCrossesCounter++
-            //     if (squares[i + 2].children[j + 2]) {
-            //       squares[i + 3].children[j + 3]
-            //       diagOneCrossesCounter++
-            //       if (diagOneCrossesCounter === 4) {
-            //         alert`O connected 4 vertically`
-            //       } else return
-            //     }
-            //   }
-            //   console.log(diagOneCrossesCounter)
-            // }
-            //   } else if (subarray[j].innerText === 'O') {
-
-            // if (squares[2].children[0]) {
-            //   squares[i + 1].children[j + 1]
-            //   if (squares[i + 1].children[j + 1]) {
-            //     squares[i + 2].children[j + 2]
-            //     if (squares[i + 2].children[j + 2]) {
-            //       squares[i + 3].children[j + 3]
-            //     }
-            //   }
-            // }
-          }
         }
       }
     }
@@ -444,6 +425,23 @@ let connectFour = new GameBoard(squares)
 
 let board = connectFour.board
 
+function winningActions() {
+  if (winningPlayer === 'X') {
+    placeWinningToken(sb1squares, playerX, 'sb1-col-row1')
+  } else {
+    placeWinningToken(sb2squares, playerO, 'sb2-col-row1')
+  }
+  displayCurrentPlayer.style.display = 'none'
+  document.getElementById(
+    'message'
+  ).innerHTML = `${winningPlayer} has connected four!`
+  document.getElementById('result').innerHTML = `Hooray!`
+  // <br><button onclick="placeWinningToken()">Place Token</button><br>`
+  document.getElementById('playAgain').click()
+  // connectFour.refreshBoard
+  // setTimeout(playAgain, 3000)
+}
+
 // GAME LOGIC
 for (let i = 0; i < squares.length; i++) {
   //why are we using .children instead of .length?
@@ -500,64 +498,7 @@ for (let i = 0; i < squares.length; i++) {
   }
 }
 
-// for (let i = 0; i < sb1squares.length; i++) {
-//   sb1squares[i].addEventListener(
-//     'click',
-//     () => {
-//       if (sb1squares[i].id === 'sb1-col-row1') {
-//         if (winningPlayer === playerX) {
-//           sb1squares[i].classList.add('xSquare')
-//           sb1squares[i].innerHTML = winningPlayer
-//         }
-//       } else if (sb1squares[i + 1].innerText === playerX) {
-//         sb1squares[i].classList.add('xSquare')
-//         sb1squares[i].innerHTML = winningPlayer
-//       }
-//     },
-//     { once: true }
-//   )
-// }
-
-// for (let i = 0; i < sb2squares.length; i++) {
-//   sb2squares[i].addEventListener('click', () => {
-//     if (sb2squares[i].id === 'sb2-col-row1') {
-//       if (winningPlayer === playerO) {
-//         sb2squares[i].classList.add('oSquare')
-//         sb2squares[i].innerHTML = winningPlayer
-//       }
-//     } else if (sb2squares[i + 1].innerText === playerO) {
-//       sb2squares[i].classList.add('oSquare')
-//       sb2squares[i].innerHTML = winningPlayer
-//       alert`one at a time cowboy`
-//       return
-//     }
-//   })
-// }
-
 //PSEUDO CODE FOR WINNING COMBINATIONS
-
-// // DIAGONAL WIN CHECK (TOP LEFT - BOTTOM RIGHT)
-//STARTING POINTS
-/*
-squares[2].children[0]
-squares[1].children[0]
-squares[0].children[0]
-squares[0].children[1]
-squares[0].children[2]
-squares[0].children[3]
-*/
-
-// squares[2].children[0], squares[i + 1].children[j+1], squares[i + 2].children[j+2], squares[i + 3].children[j+3]
-
-// squares[1].children[0], squares[i + 1].children[j+1], squares[i + 2].children[j+2], squares[i + 3].children[j+3]
-
-// squares[0].children[0], squares[i + 1].children[j+1], squares[i + 2].children[j+2], squares[i + 3].children[j+3]
-
-// squares[0].children[1], squares[i + 1].children[j+1], squares[i + 2].children[j+2], squares[i + 3].children[j+3]
-
-// squares[0].children[2], squares[i + 1].children[j+1], squares[i + 2].children[j+2], squares[i + 3].children[j+3]
-
-// squares[0].children[3], squares[i + 1].children[j+1], squares[i + 2].children[j+2], squares[i + 3].children[j+3]
 
 // // DIAGONAL WIN CHECK (BOTTOM LEFT - TOP RIGHT)
 //STARTING POINTS

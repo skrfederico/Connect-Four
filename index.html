@@ -9,8 +9,9 @@
   <script defer src="./app.js"></script>
 </head>
 <body>
-  <h1>Connect 4 to Connect 10</h1>
-  <button class="modal-buttons" id="openModal">About the Game</button>
+  <h1>Connect 4 to RACE!</h1>
+
+  <!-- <button class="modal-buttons" id="openModal">About the Game</button>
   <div id="modal">
     <div id="modal-textbox">
       <h1>Not your typical "Connect 4"</h1>
@@ -25,31 +26,21 @@
         <button class="modal-buttons" id="close" href="#">Close</button>
       </div>
     </div>
-  </div>
-  <p id="message"></p>
-<div id="chooseName" class="choice">Who's playing?<br>
+  </div> -->
+
+<p id="message"></p>
+<p></p><div id="chooseName" class="choice">Who's playing?<br>
   Name: <input type="text" id="p1name" name="value" value="Player 1"><br>
   <button onclick="setPlayerName()">Continue</button><br>
-  <!-- Name: <input type="text" id="p2name" name="value" value="Player 2"><br> -->
-<!-- Choose your 'chips'
-<ul id="chip_options" class="rows">
-  <div id="chip1"></div>
-  <div id="chip2"></div>
-  <div id="chip3"></div>
-  <div id="chip4"></div>
-  <div id="chip5"></div>
-  <div id="chip6"></div>
-</ul> 
-</div> -->
-</div>
+</div></p>
 <h3 id="turn"><span id="current-player">X</span></h3>
-<h3 id="result"></h3>
-<button id="playAgain">RESET</button><br>
-<div id="playArea" class="container">
-  <!-- <h3>match#<span id="current-match">1</span></h3> -->
 
+<h3 id="result"></h3>
+<p><button id="playAgain">RESET</button></p>
+
+<div id="playArea" class="container">
   <div id="score1" class="scoreboard">
-    <div><p>Finish line</p></div>
+    <div><h3>Go X !!!</h3></div>
     <ul id="p1column" class="sb1-column">
       <div id="sb1-col-row10"></div>
       <div id="sb1-col-row9"></div>
@@ -60,10 +51,9 @@
       <div id="sb1-col-row4"></div>
       <div id="sb1-col-row3"></div>
       <div id="sb1-col-row2"></div>
-      <div id ="sb1-col-row1">Start here!</div>  
-
+      <div id ="sb1-col-row1"></div>  
     </ul>
-      <div><p>Start line</p></div>
+      <div><p>.</p></div>
     </div>
     
     <div class="grid">
@@ -124,7 +114,7 @@
     </div>
     
   <div id="score2" class="scoreboard">
-  <div><p>Finish line</p></div>
+  <div><h3>Go 0 !!!</h3></div>
   <ul id="p2column" class="sb2-column">
     <div id="sb2-col-row10"></div>
     <div id="sb2-col-row9"></div>
@@ -135,10 +125,10 @@
     <div id="sb2-col-row4"></div>
     <div id="sb2-col-row3"></div>
     <div id="sb2-col-row2"></div>
-    <div id ="sb2-col-row1" class="bottom">Not here!</div>  
+    <div id ="sb2-col-row1" class="bottom"></div>  
       
   </ul>
-  <div><p>Start line</p></div>
+  <div><p>.</p></div>
   </div>
 </div>
 </body>
