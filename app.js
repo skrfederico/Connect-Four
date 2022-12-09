@@ -47,6 +47,9 @@ function placeWinningToken() {
     } else if (sb1squares[i + 1].innerText === playerX) {
       sb1squares[i].classList.add('xSquare')
       sb1squares[i].innerHTML = winningPlayer
+      if (sb1squares[0].innerHTML === playerX) {
+        ;`You've won!`
+      }
     }
     document.getElementById('message').innerHTML = ``
     document.getElementById('result').innerHTML = ``
@@ -61,6 +64,9 @@ function placeWinningToken() {
     } else if (sb1squares[j + 1].innerText === playerO) {
       sb2squares[j].classList.add('oSquare')
       sb2squares[j].innerHTML = winningPlayer
+      if (sb1squares[0].innerHTML === playerO) {
+        ;`You've won!`
+      }
     }
     document.getElementById('message').innerHTML = ``
     document.getElementById('result').innerHTML = ``
@@ -121,7 +127,12 @@ class GameBoard {
       for (let i = 0; i < squares.length; i++) {
         let subarray = squares[i].children
         for (let j = 0; j < subarray.length; j++) {
-          if (subarray[j + 1] && subarray[j + 1].innerText) {
+          if (
+            subarray[j + 1] &&
+            subarray[j + 2] &&
+            subarray[j + 3] &&
+            subarray[j + 1].innerText
+          ) {
             if (subarray[j].innerText === 'X') {
               if (subarray[j].innerText === subarray[j + 1].innerText) {
                 if (subarray[j + 1].innerText === subarray[j + 2].innerText) {
@@ -165,7 +176,10 @@ class GameBoard {
           }
           if (
             squares[r + 1] &&
+            squares[r + 2] &&
+            squares[r + 3] &&
             squares[r + 1].children[c] &&
+            squares[r + 2].children[c] &&
             squares[r + 1].children[c].innerText
           ) {
             if (squares[r].children[c].innerText === 'X') {
@@ -181,9 +195,9 @@ class GameBoard {
                     squares[r + 2].children[c].innerText ===
                     squares[r + 3].children[c].innerText
                   ) {
+                    winningPlayer = playerX
                     alert`X connected 4 vertically`
-                    message.innerHTML = `3 seconds to place your token in the scoreboard`
-                    result.innerHTML = `4 connected`
+                    winningActions()
                   }
                 }
               }
@@ -200,7 +214,9 @@ class GameBoard {
                     squares[r + 2].children[c].innerText ===
                     squares[r + 3].children[c].innerText
                   ) {
+                    winningPlayer = playerO
                     alert`O connected 4 vertically`
+                    winningActions()
                   }
                 }
               }
@@ -223,12 +239,55 @@ class GameBoard {
           if (
             //introducing the 'cells'
             squares[i + 1] &&
+            squares[i + 2] &&
+            squares[i + 3] &&
             currentCell.innerText &&
-            squares[i + 1].children[j + 1] &&
-            //actual connection
-            currentCell.innerText === squares[i + 1].children[j + 1].innerText
+            squares[i + 1].children[j + 1]
           ) {
-            if (squares[i + 1].children[j + 1].innerText === `X`) {
+            // if square has X
+            if (squares[i].children[j].innerText === 'X') {
+              //actual connection
+              if (
+                squares[i].children[j].innerText ===
+                squares[i + 1].children[j + 1].innerText
+                // NESTED VERSION
+              ) {
+                if (
+                  squares[i + 1].children[j + 1].innerText ===
+                  squares[i + 2].children[j + 2].innerText
+                ) {
+                  if (
+                    squares[i + 2].children[j + 2].innerText ===
+                    squares[i + 3].children[j + 3].innerText
+                  ) {
+                    winningPlayer = playerX
+                    alert`X connected 4 diagonally`
+                    winningActions()
+                  }
+                }
+              }
+            } else if (squares[i].children[j].innerText === `O`)
+              if (
+                squares[i].children[j].innerText ===
+                squares[i + 1].children[j + 1].innerText
+              ) {
+                if (
+                  squares[i + 1].children[j + 1].innerText ===
+                  squares[i + 2].children[j + 2].innerText
+                ) {
+                  if (
+                    squares[i + 2].children[j + 2].innerText ===
+                    squares[i + 3].children[j + 3].innerText
+                  ) {
+                    winningPlayer = playerO
+                    alert`O connected 4 diagonally`
+                    winningActions()
+                  }
+                }
+              }
+
+            //check diag1 version w Marlin
+            /*   if (squares[i + 1].children[j + 1].innerText === `X`) {
               diagOneCrossesCounter++
               console.log(
                 diagOneCrossesCounter,
@@ -295,83 +354,87 @@ class GameBoard {
             currentCell = squares[i - 1].children[i - 1]
             console.log(`end diagonal matching`)
           }
-          // {
-          //   if (subarray[j].innerText === 'X') {
-          //     if (squares[2].children[0]) {
-          //       squares[i + 1].children[j + 1]
-          //       diagOneCrossesCounter++
-          //       if (squares[i + 1].children[j + 1]) {
-          //         squares[i + 2].children[j + 2]
-          //         diagOneCrossesCounter++
-          //         if (squares[i + 2].children[j + 2]) {
-          //           squares[i + 3].children[j + 3]
-          //           diagOneCrossesCounter++
-          //           if (diagOneCrossesCounter === 4) {
-          //             alert`O connected 4 vertically`
-          //           } else return
-          //         }
-          //       }
-          //       console.log(diagOneCrossesCounter)
-          //     }
-          //   } else if (subarray[j].innerText === 'O') {
-          //     if (squares[2].children[0]) {
-          //       squares[i + 1].children[j + 1]
-          //       if (squares[i + 1].children[j + 1]) {
-          //         squares[i + 2].children[j + 2]
-          //         if (squares[i + 2].children[j + 2]) {
-          //           squares[i + 3].children[j + 3]
-          //         }
-          //       }
-          //     }
-          //   }
-          // }
+        */
 
-          //   if (subarray[j].innerText === 'X') {
-          //     if (squares[1].children[0]) {
-          //       squares[i + 1].children[j + 1]
-          //       diagOneCrossesCounter++
-          //       if (squares[i + 1].children[j + 1]) {
-          //         squares[i + 2].children[j + 2]
-          //         diagOneCrossesCounter++
-          //         if (squares[i + 2].children[j + 2]) {
-          //           squares[i + 3].children[j + 3]
-          //           diagOneCrossesCounter++
-          //           if (squares[i + 3].children[j + 3]) {
-          //             squares[i + 4].children[j + 4]
-          //             diagOneCrossesCounter++
-          //           }
-          //           if (diagOneCrossesCounter === 4) {
-          //             alert`O connected 4 diagonally top left`
-          //           } else return
-          //         }
-          //       }
-          //       console.log(diagOneCrossesCounter)
-          //     }
-          //   } else if (subarray[j].innerText === 'O') {
-          //     if (squares[1].children[0]) {
-          //       squares[i + 1].children[j + 1]
-          //       diagOneNoughtsCounter++
-          //       if (squares[i + 1].children[j + 1]) {
-          //         squares[i + 2].children[j + 2]
-          //         diagOneNoughtsCounter++
-          //         if (squares[i + 2].children[j + 2]) {
-          //           squares[i + 3].children[j + 3]
-          //           diagOneNoughtsCounter++
-          //           if (squares[i + 3].children[j + 3]) {
-          //             squares[i + 4].children[j + 4]
-          //             diagOneNoughtsCounter++
-          //           }
-          //           if (diagOneNoughtsCounter === 4) {
-          //             alert`O connected 4 diagonally top left`
-          //           } else return
-          //         }
-          //       }
-          //       console.log(diagOneCrossesCounter)
-          //     }
-          //   }
+            //   squares[i + 1].children[j + 1]
+            //   diagOneCrossesCounter++
+            //   if (squares[i + 1].children[j + 1]) {
+            //     squares[i + 2].children[j + 2]
+            //     diagOneCrossesCounter++
+            //     if (squares[i + 2].children[j + 2]) {
+            //       squares[i + 3].children[j + 3]
+            //       diagOneCrossesCounter++
+            //       if (diagOneCrossesCounter === 4) {
+            //         alert`O connected 4 vertically`
+            //       } else return
+            //     }
+            //   }
+            //   console.log(diagOneCrossesCounter)
+            // }
+            //   } else if (subarray[j].innerText === 'O') {
+
+            // if (squares[2].children[0]) {
+            //   squares[i + 1].children[j + 1]
+            //   if (squares[i + 1].children[j + 1]) {
+            //     squares[i + 2].children[j + 2]
+            //     if (squares[i + 2].children[j + 2]) {
+            //       squares[i + 3].children[j + 3]
+            //     }
+            //   }
+            // }
+          }
         }
       }
     }
+
+    //   if (subarray[j].innerText === 'X') {
+    //     if (squares[1].children[0]) {
+    //       squares[i + 1].children[j + 1]
+    //       diagOneCrossesCounter++
+    //       if (squares[i + 1].children[j + 1]) {
+    //         squares[i + 2].children[j + 2]
+    //         diagOneCrossesCounter++
+    //         if (squares[i + 2].children[j + 2]) {
+    //           squares[i + 3].children[j + 3]
+    //           diagOneCrossesCounter++
+    //           if (squares[i + 3].children[j + 3]) {
+    //             squares[i + 4].children[j + 4]
+    //             diagOneCrossesCounter++
+    //           }
+    //           if (diagOneCrossesCounter === 4) {
+    //             alert`O connected 4 diagonally top left`
+    //           } else return
+    //         }
+    //       }
+    //       console.log(diagOneCrossesCounter)
+    //     }
+    //   } else if (subarray[j].innerText === 'O') {
+    //     if (squares[1].children[0]) {
+    //       squares[i + 1].children[j + 1]
+    //       diagOneNoughtsCounter++
+    //       if (squares[i + 1].children[j + 1]) {
+    //         squares[i + 2].children[j + 2]
+    //         diagOneNoughtsCounter++
+    //         if (squares[i + 2].children[j + 2]) {
+    //           squares[i + 3].children[j + 3]
+    //           diagOneNoughtsCounter++
+    //           if (squares[i + 3].children[j + 3]) {
+    //             squares[i + 4].children[j + 4]
+    //             diagOneNoughtsCounter++
+    //           }
+    //           if (diagOneNoughtsCounter === 4) {
+    //             alert`O connected 4 diagonally top left`
+    //           } else return
+    //         }
+    //       }
+    //       console.log(diagOneCrossesCounter)
+    //     }
+    //   }
+    /*
+        }
+      }
+    }
+    */
     checkForDiagOne()
   }
 }
