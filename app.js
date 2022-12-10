@@ -1,21 +1,5 @@
 console.log('it works')
 
-// // MODAL
-// const modal = document.querySelector('#modal')
-// const openBtn = document.querySelector('#openModal')
-// const closeBtn = document.querySelector('#close')
-const reset = document.querySelector('#playAgain')
-
-// const openModal = () => {
-//   modal.style.display = 'block'
-// }
-// openBtn.addEventListener('click', openModal)
-
-// const closeModal = () => {
-//   modal.style.display = 'none'
-// }
-// closeBtn.addEventListener('click', closeModal)
-
 // SETTING UP THE GAME
 function setPlayerName() {
   globalThis.p1 = document.getElementById('p1name').value
@@ -63,13 +47,14 @@ const sb2squares = document.querySelectorAll('.sb2-column div')
 const result = document.getElementById('result')
 const displayCurrentPlayer = document.getElementById('current-player')
 const displayCurrentMatch = document.getElementById('current-match')
+const reset = document.querySelector('#playAgain')
 
 const playerX = 'X'
 const playerO = 'O'
 let currentPlayer = playerX
 let winningPlayer
 
-let matchNumber = 1
+// let matchNumber = 1
 
 class GameBoard {
   constructor(board) {
@@ -77,10 +62,6 @@ class GameBoard {
   }
 
   // INSIDE GAME LOGIC
-  // placeToken(player1, x) {
-  //   this.board[x][y] = player1
-  //   this.checkForWinner()
-  // }
 
   refreshBoard() {
     //MY CODE: ARROW FUNCTION INSIDE GAME LOGIC
@@ -294,135 +275,15 @@ class GameBoard {
               }
             }
           }
-
-          //check diag1 version w Marlin
-          /*   if (squares[i + 1].children[j + 1].innerText === `X`) {
-              diagOneCrossesCounter++
-              console.log(
-                diagOneCrossesCounter,
-                squares[i + 1].children[j + 1].innerText
-              )
-            }
-            if (diagOneCrossesCounter === 4) {
-              alert(`connected four diagonally`)
-            } else {
-              diagOneCrossesCounter = 1
-            }
-
-            if (squares[i + 1].children[j + 1].innerText === `O`) {
-              diagOneNoughtsCounter++
-              console.log(
-                diagOneNoughtsCounter,
-                squares[i + 1].children[j + 1].innerText
-              )
-            }
-            if (diagOneNoughtsCounter === 4) {
-              alert(`connected four diagonally`)
-            } else {
-              diagOneNoughtsCounter = 1
-            }
-            currentCell = squares[i + 1].children[i + 1]
-            console.log(`diagonal matching`)
-          }
-
-          if (
-            squares[i - 1] &&
-            currentCell.innerText &&
-            squares[i - 1].children[j + 1] &&
-            currentCell.innerText === squares[i - 1].children[j + 1].innerText
-          ) {
-            if (
-              squares[i - 1].children[j - 1] &&
-              squares[i - 1].children[j - 1].innerText === `O`
-            ) {
-              diagOneCrossesCounter++
-              console.log(
-                diagOneCrossesCounter,
-                squares[i - 1].children[j - 1].innerText
-              )
-            }
-
-            if (diagOneCrossesCounter === 4) {
-              alert(`connected four diagonally`)
-            } else {
-              diagOneCrossesCounter = 1
-            }
-
-            if (squares[i - 1].children[j - 1].innerText === `O`) {
-              diagOneNoughtsCounter++
-              console.log(
-                diagOneNoughtsCounter,
-                squares[i - 1].children[j - 1].innerText
-              )
-            }
-            if (diagOneNoughtsCounter === 4) {
-              alert(`connected four diagonally`)
-            } else {
-              diagOneNoughtsCounter = 1
-            }
-            currentCell = squares[i - 1].children[i - 1]
-            console.log(`end diagonal matching`)
-          }
-        */
         }
       }
     }
-
-    //   if (subarray[j].innerText === 'X') {
-    //     if (squares[1].children[0]) {
-    //       squares[i + 1].children[j + 1]
-    //       diagOneCrossesCounter++
-    //       if (squares[i + 1].children[j + 1]) {
-    //         squares[i + 2].children[j + 2]
-    //         diagOneCrossesCounter++
-    //         if (squares[i + 2].children[j + 2]) {
-    //           squares[i + 3].children[j + 3]
-    //           diagOneCrossesCounter++
-    //           if (squares[i + 3].children[j + 3]) {
-    //             squares[i + 4].children[j + 4]
-    //             diagOneCrossesCounter++
-    //           }
-    //           if (diagOneCrossesCounter === 4) {
-    //             alert`O connected 4 diagonally top left`
-    //           } else return
-    //         }
-    //       }
-    //       console.log(diagOneCrossesCounter)
-    //     }
-    //   } else if (subarray[j].innerText === 'O') {
-    //     if (squares[1].children[0]) {
-    //       squares[i + 1].children[j + 1]
-    //       diagOneNoughtsCounter++
-    //       if (squares[i + 1].children[j + 1]) {
-    //         squares[i + 2].children[j + 2]
-    //         diagOneNoughtsCounter++
-    //         if (squares[i + 2].children[j + 2]) {
-    //           squares[i + 3].children[j + 3]
-    //           diagOneNoughtsCounter++
-    //           if (squares[i + 3].children[j + 3]) {
-    //             squares[i + 4].children[j + 4]
-    //             diagOneNoughtsCounter++
-    //           }
-    //           if (diagOneNoughtsCounter === 4) {
-    //             alert`O connected 4 diagonally top left`
-    //           } else return
-    //         }
-    //       }
-    //       console.log(diagOneCrossesCounter)
-    //     }
-    //   }
-    /*
-        }
-      }
-    }
-    */
     checkForDiagOne()
   }
 }
 /// this is the end of the class
 
 let connectFour = new GameBoard(squares)
-
 let board = connectFour.board
 
 function winningActions() {
@@ -447,7 +308,6 @@ for (let i = 0; i < squares.length; i++) {
   //why are we using .children instead of .length?
   let subarray = squares[i].children
   for (let j = 0; j < subarray.length; j++) {
-    // console.log(subarray[j].tagName)
     subarray[j].addEventListener('click', () => {
       if (squares[i].id === 'row5') {
         if (currentPlayer === playerX) {
@@ -497,28 +357,3 @@ for (let i = 0; i < squares.length; i++) {
     // reset.addEventListener('click', connectFour.refreshBoard())
   }
 }
-
-//PSEUDO CODE FOR WINNING COMBINATIONS
-
-// // DIAGONAL WIN CHECK (BOTTOM LEFT - TOP RIGHT)
-//STARTING POINTS
-/*
-squares[0].children[3]
-squares[0].children[4]
-squares[0].children[5]
-squares[0].children[6]
-squares[1].children[6]
-squares[2].children[6]
-*/
-
-// squares[0].children[3], squares[i + 1].children[j-1], squares[i + 2].children[j-2], squares[i + 3].children[j-3]
-
-// squares[0].children[4], squares[i + 1].children[j-1], squares[i + 2].children[j-2], squares[i + 3].children[j-3]
-
-// squares[0].children[5], squares[i + 1].children[j-1], squares[i + 2].children[j-2], squares[i + 3].children[j-3]
-
-// squares[0].children[6], squares[i + 1].children[j-1], squares[i + 2].children[j-2], squares[i + 3].children[j-3]
-
-// squares[1].children[6], squares[i + 1].children[j-1], squares[i + 2].children[j-2], squares[i + 3].children[j-3]
-
-// squares[2].children[6], squares[i + 1].children[j-1], squares[i + 2].children[j-2], squares[i + 3].children[j-3]

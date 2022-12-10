@@ -1,4 +1,5 @@
 body{
+  /* background-image: url(images/colorful-background.jpeg); */
   background-color: grey;
 }
 
@@ -18,14 +19,6 @@ h3{
 display: flex;
 justify-content: center;
 }
-
-/* .turn {
-  text-align: center;
-  margin: auto;
-  width: 50%;
-  border: 3px solid green;
-  padding: 10px;
-} */
 
 #modal {
   display: none;
