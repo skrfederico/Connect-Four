@@ -5,7 +5,7 @@ function setPlayerName() {
   globalThis.p1 = document.getElementById('p1name').value
   document.getElementById(
     'message'
-  ).innerHTML = `Welcome ${p1}. You'll use X tokens`
+  ).innerHTML = `Welcome ${p1}. You'll use X tokens!`
   document.getElementById('chooseName').innerHTML = `Who else's playing?<br>
   Name: <input type="text" id="p2name" name="value" value="Player 2"><br>
   <button onclick="setBoard()">Let's play!</button><br>`
@@ -16,7 +16,7 @@ function setBoard() {
   document.getElementById(
     'message'
   ).innerHTML = `You are also welcome, ${p2}. You'll use O tokens! <br> Let's do this!`
-  document.getElementById('chooseName').innerHTML = ``
+  document.getElementById('chooseName').style.display = 'none'
   document.getElementById('playArea').style.display = 'flex'
   document.getElementById('turn').style.display = 'flex'
 }
@@ -53,8 +53,6 @@ const playerX = 'X'
 const playerO = 'O'
 let currentPlayer = playerX
 let winningPlayer
-
-// let matchNumber = 1
 
 class GameBoard {
   constructor(board) {
@@ -238,16 +236,16 @@ class GameBoard {
               } //actual connection
             if (
               squares[i].children[j].innerText ===
-              squares[i + 1].children[j + 1].innerText
+              squares[i + 1].children[j - 1].innerText
               // NESTED VERSION
             ) {
               if (
-                squares[i + 1].children[j + 1].innerText ===
-                squares[i + 2].children[j + 2].innerText
+                squares[i + 1].children[j - 1].innerText ===
+                squares[i + 2].children[j - 2].innerText
               ) {
                 if (
-                  squares[i + 2].children[j + 2].innerText ===
-                  squares[i + 3].children[j + 3].innerText
+                  squares[i + 2].children[j - 2].innerText ===
+                  squares[i + 3].children[j - 3].innerText
                 ) {
                   winningPlayer = playerX
                   alert`X connected 4 diagonally B`
@@ -292,15 +290,13 @@ function winningActions() {
   } else {
     placeWinningToken(sb2squares, playerO, 'sb2-col-row1')
   }
-  displayCurrentPlayer.style.display = 'none'
-  document.getElementById(
-    'message'
-  ).innerHTML = `${winningPlayer} has connected four!`
-  document.getElementById('result').innerHTML = `Hooray!`
-  // <br><button onclick="placeWinningToken()">Place Token</button><br>`
+  // displayCurrentPlayer.innerText = 'HORRAY'
+
+  // document.getElementById(
+  //   'message'
+  // ).innerHTML = `${winningPlayer} has connected four!`
+  // document.getElementById('result').innerHTML = `Hooray!`
   document.getElementById('playAgain').click()
-  // connectFour.refreshBoard
-  // setTimeout(playAgain, 3000)
 }
 
 // GAME LOGIC
