@@ -49,6 +49,8 @@ const displayCurrentPlayer = document.getElementById('current-player')
 const displayCurrentMatch = document.getElementById('current-match')
 const reset = document.querySelector('#playAgain')
 
+console.log('hello')
+
 const playerX = 'X'
 const playerO = 'O'
 let currentPlayer = playerX
