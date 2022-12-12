@@ -12,16 +12,19 @@
   <h1>Connect 4 to RACE!</h1>
 
 <p id="message"></p>
-<p></p><div id="chooseName" class="choice">Who's playing?<br>
-  Name: <input tyhpe="text" id="p1name" name="value" value="Player 1"><br>
-  <button onclick="setPlayerName()">Continue</button><br>
-</div></p>
+<div id="chooseName" class="choice">Who's playing?<br>
+    <label for="one">Player One:</label>
+    <input type="text" id="one" name="one'" placeholder="playerOne"><br>
+    <label for="two">Player Two:</label> 
+    <input type="text" id="two" name="two" placeholder="playerTwo"><br>
+    <button onclick="setBoard()">Start Game</button><br>
+</div>
 
 <h3 id="result"></h3>
 
 <div id="playArea" class="container">
   <div id="score1" class="scoreboard">
-    <div><h3>Go X !!!</h3></div>
+    <div><h3 id="p1score"></h3></div>
     <ul id="p1column" class="sb1-column">
       <div id="sb1-col-row10"></div>
       <div id="sb1-col-row9"></div>
@@ -34,12 +37,12 @@
       <div id="sb1-col-row2"></div>
       <div id ="sb1-col-row1"></div>  
     </ul>
-      <div><p>.</p></div>
+      <div><h3>X</h3></div>
     </div>
     
     <div class="grid">
       <div id="row0" class="row">
-      <div class="'col1"></div>
+      <div></div>
       <div></div>
       <div></div>
       <div></div>
@@ -48,7 +51,7 @@
       <div></div>
       </div>  
       <div id="row1" class="row">
-      <div class="col1"></div>
+      <div></div>
       <div></div>
       <div></div>
       <div></div>
@@ -57,7 +60,7 @@
       <div></div>  
       </div>
     <div id="row2" class="row">
-      <div class="col1"></div>
+      <div></div>
       <div></div>
       <div></div>
       <div></div>
@@ -66,7 +69,7 @@
       <div></div>  
       </div>
     <div id="row3" class="row">
-      <div class="col1"></div>
+      <div></div>
       <div></div>
       <div></div>
       <div></div>
@@ -75,7 +78,7 @@
       <div></div>  
       </div>
     <div id="row4" class="row">
-      <div class="col1"></div>
+      <div></div>
       <div></div>
       <div></div>
       <div></div>
@@ -84,7 +87,7 @@
       <div></div>  
       </div>
     <div id="row5" class="row">
-      <div class="col1"></div>
+      <div></div>
       <div></div>
       <div></div>
       <div></div>
@@ -97,7 +100,7 @@
     </div>
     
   <div id="score2" class="scoreboard">
-  <div><h3>Go 0 !!!</h3></div>
+  <div><h3 id="p2score"></h3></div>
   <ul id="p2column" class="sb2-column">
     <div id="sb2-col-row10"></div>
     <div id="sb2-col-row9"></div>
@@ -111,7 +114,7 @@
     <div id ="sb2-col-row1" class="bottom"></div>  
       
   </ul>
-  <div><p>.</p></div>
+  <div><h3>O</h3></div>
   </div>
 </div>
 </body>

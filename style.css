@@ -42,6 +42,7 @@ h3{
 display: flex;
 justify-content: center;
 font-size: x-large;
+height: 10px;
 }
 
 #message{

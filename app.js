@@ -1,21 +1,40 @@
-console.log('it works')
+const squares = document.querySelectorAll('.grid>div')
+const test = document.querySelector('.grid')
+const sb1squares = document.querySelectorAll('.sb1-column div')
+const sb2squares = document.querySelectorAll('.sb2-column div')
+const message = document.getElementById('message')
+const result = document.getElementById('result')
+const displayCurrentPlayer = document.getElementById('current-player')
+const displayCurrentMatch = document.getElementById('current-match')
+const reset = document.querySelector('#playAgain')
+let playerOne = document.getElementById('one')
+let playerTwo = document.getElementById('two')
+
+const playerX = 'X'
+const playerO = 'O'
+let currentPlayer = playerX
+
+let p1, p2, winningPlayer
 
 // SETTING UP THE GAME
-function setPlayerName() {
-  globalThis.p1 = document.getElementById('p1name').value
-  document.getElementById(
-    'message'
-  ).innerHTML = `Welcome ${p1}. You'll use X tokens!`
-  document.getElementById('chooseName').innerHTML = `Who else's playing?<br>
-  Name: <input type="text" id="p2name" name="value" value="Player 2"><br>
-  <button onclick="setBoard()">Let's play!</button><br>`
+function setPlayers() {
+  if (playerOne.value) {
+    p1 = playerOne.value
+  } else {
+    p1 = 'Player One'
+  }
+  p2 = playerTwo.value ? playerTwo.value : 'Player Two'
+  const players = {
+    x: p1,
+    o: p2
+  }
+  return players
 }
-
 function setBoard() {
-  globalThis.p2 = document.getElementById('p2name').value
-  document.getElementById(
-    'message'
-  ).innerHTML = `You are also welcome, ${p2}. You'll use O tokens! <br> Let's do this!`
+  let x = setPlayers().x
+  let o = setPlayers().o
+  document.getElementById('p1score').innerText = `Go ${x}!!!`
+  document.getElementById('p2score').innerText = `Go ${o}!!!`
   document.getElementById('chooseName').style.display = 'none'
   document.getElementById('playArea').style.display = 'flex'
   document.getElementById('turn').style.display = 'flex'
@@ -40,21 +59,6 @@ function placeWinningToken(squares, player, cellname) {
     document.getElementById('result').innerHTML = ``
   }
 }
-
-const squares = document.querySelectorAll('.grid>div')
-const sb1squares = document.querySelectorAll('.sb1-column div')
-const sb2squares = document.querySelectorAll('.sb2-column div')
-const result = document.getElementById('result')
-const displayCurrentPlayer = document.getElementById('current-player')
-const displayCurrentMatch = document.getElementById('current-match')
-const reset = document.querySelector('#playAgain')
-
-console.log('hello')
-
-const playerX = 'X'
-const playerO = 'O'
-let currentPlayer = playerX
-let winningPlayer
 
 class GameBoard {
   constructor(board) {
@@ -201,7 +205,6 @@ class GameBoard {
               if (
                 squares[i].children[j].innerText ===
                 squares[i + 1].children[j + 1].innerText
-                // NESTED VERSION
               ) {
                 if (
                   squares[i + 1].children[j + 1].innerText ===
@@ -292,66 +295,46 @@ function winningActions() {
   } else {
     placeWinningToken(sb2squares, playerO, 'sb2-col-row1')
   }
-  // displayCurrentPlayer.innerText = 'HORRAY'
-
-  // document.getElementById(
-  //   'message'
-  // ).innerHTML = `${winningPlayer} has connected four!`
-  // document.getElementById('result').innerHTML = `Hooray!`
   document.getElementById('playAgain').click()
 }
+function setSquare() {
+  test.addEventListener('click', (event) => {
+    let target = event.target
+    let parent = target.parentElement
+    let index = [...parent.children].indexOf(target)
+    let parentId = parent.id
+    let uncle = parent.nextSibling.nextSibling
+    let cousins = [...uncle.children]
+    let cousin = cousins[index]?.innerText
 
-// GAME LOGIC
-for (let i = 0; i < squares.length; i++) {
-  //why are we using .children instead of .length?
-  let subarray = squares[i].children
-  for (let j = 0; j < subarray.length; j++) {
-    subarray[j].addEventListener('click', () => {
-      if (squares[i].id === 'row5') {
-        if (currentPlayer === playerX) {
-          subarray[j].classList.add('xSquare')
-          subarray[j].innerHTML = currentPlayer
-          currentPlayer = playerO
-          displayCurrentPlayer.innerHTML = currentPlayer
-          document.getElementById(
-            'message'
-          ).innerHTML = `<span id="current-player"></span>`
-        } else {
-          subarray[j].classList.add('oSquare')
-          subarray[j].innerHTML = currentPlayer
-          currentPlayer = playerX
-          displayCurrentPlayer.innerHTML = currentPlayer
-        }
-      } else if (
-        squares[i + 1].children[j].innerText &&
-        currentPlayer === playerX
-      ) {
-        subarray[j].classList.add('xSquare')
-        subarray[j].innerHTML = currentPlayer
-        currentPlayer = playerO
-        displayCurrentPlayer.innerHTML = currentPlayer
-      } else if (
-        squares[i + 1].children[j].innerText &&
-        currentPlayer === playerO
-      ) {
-        subarray[j].classList.add('oSquare')
-        subarray[j].innerHTML = currentPlayer
-        currentPlayer = playerX
-        displayCurrentPlayer.innerHTML = currentPlayer
-      } else {
-        alert(`invalid move`)
-      }
-      connectFour.checkForWinner()
-    })
-
-    const playAgain = () => {
-      console.log('reset clicked')
-      subarray[j].classList.remove('xSquare')
-      subarray[j].classList.remove('oSquare')
-      subarray[j].innerText = ''
-      displayCurrentPlayer.style.display = `inline`
+    if (parentId === 'row5' || cousin) {
+      target.innerHTML = currentPlayer
+      let square = currentPlayer === 'X' ? 'xSquare' : 'oSquare'
+      target.classList.add(square)
+      displayCurrentPlayer.innerHTML = currentPlayer
+      message.innerHTML = `<span id="current-player"></span>`
     }
-    reset.addEventListener('click', playAgain)
-    // reset.addEventListener('click', connectFour.refreshBoard())
-  }
+    currentPlayer = currentPlayer === 'X' ? 'O' : 'X'
+  })
+  return currentPlayer
 }
+
+const playAgain = () => {
+  console.log('reset clicked')
+  subarray[j].classList.remove('xSquare')
+  subarray[j].classList.remove('oSquare')
+  subarray[j].innerText = ''
+  displayCurrentPlayer.style.display = `inline`
+}
+reset.addEventListener('click', playAgain)
+
+function gamePlay() {
+  console.log(setSquare())
+  // setSquare()
+
+  connectFour.checkForWinner()
+}
+gamePlay()
+// reset.addEventListener('click', connectFour.refreshBoard())
+//   }
+// }
